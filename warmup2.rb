@@ -31,6 +31,8 @@ require_relative 'linked_list'
 
 		NAME_REGEX = /name[ = ]*[",'](.*?)[",']/
 
+		ENTIRE_OPEN_TAG = /^<.*?>/
+
 
 Tag = Struct.new( :type, :class, :id, :name, :content )
 
@@ -105,13 +107,30 @@ class ParseHTML
 
 		  name = find_name
 
-binding.pry
-
 		  @current_node = Tag.new( type, classes, id, name )
 
 		  @list.add_node( @current_node )
 
-		  binding.pry
+
+		  @html_string = @html_string.sub( ENTIRE_OPEN_TAG, '' )
+
+		  i = 0
+		  content = []
+
+		  while @html_string[ i ] != '<'
+binding.pry
+		  	content << @html_string[ i ] unless @html_string[ i ].nil?
+
+		  	i += 1
+
+		  end
+
+		  if !content.empty?
+
+		  	@current_node.content = content.join
+
+		  end
+binding.pry
 				# if none, move on
 				# if found - store in node
 					# delete from string
