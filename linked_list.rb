@@ -1,4 +1,3 @@
-Tag = Struct.new( :type, :class, :id, :name, :content )
 
 class LinkedList
 

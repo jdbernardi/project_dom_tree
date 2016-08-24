@@ -17,92 +17,123 @@
 require 'pry'
 require_relative 'linked_list'
 
-		OPEN_TAG_REGEX = /^<([a-z]*\d?)/
+		OPEN_TAG_REGEX = /^<([^\s|>]+)/
 	# for establishing #tags...find all groups of tags
 	# this captures all opening tags
 		# <([^\/].*?)>
-		ALL_TAGS_REGEX = /<([^\/].*?)>/
+		ALL_OPEN_TAGS_REGEX = /<([^\/].*?)>/
 
-		CLASS_REGEX = /class[ = ]*'(.*?)'/
+		ALL_CLOSING_TAGS_REGEX = /<\/(.*?)>/
 
-		ID_REGEX = /id[ = ]*'(.*?)'/
+		CLASS_REGEX = /class[ = ]*[",'](.*?)[",']/
 
-		NAME_REGEX = /name[ = ]*'(.*?)'/
+		ID_REGEX = /id[ = ]*[",'](.*?)[",']/
+
+		NAME_REGEX = /name[ = ]*[",'](.*?)[",']/
+
+
+Tag = Struct.new( :type, :class, :id, :name, :content )
 
 
 class ParseHTML
 
 
-	def initialize( file )
+		def initialize( file )
 
-		@html = File.open( file, "r" )
-		@html_string = nil
+			@html = File.open( file, "r" )
+			@html_string = nil
 
-		@list = nil
+			@current_node = nil
 
-	end
-
-	def process_html
-
-		arr = []
-
-		@html.readlines.each do | w |
-
-			arr << w.strip
+			@list = LinkedList.new
 
 		end
 
-		@html_string = arr.join
+		def process_html
+
+			arr = []
+
+			@html.readlines.each do | w |
+
+				arr << w.strip
+
+			end
+
+			@html_string = arr.join
+
+
+
+		end
+
+
+		def find_tag
+
+			return @html_string.match( OPEN_TAG_REGEX ).captures.join
+
+		end
+
+
+		def find_classes
+
+			return @html_string.match( CLASS_REGEX).captures.join.split(' ') unless @html_string.match( CLASS_REGEX ).nil?
+
+		end
+
+		def find_id
+
+			return @html_string.match( ID_REGEX ).captures.join unless @html_string.match( ID_REGEX ).nil?
+
+		end
+
+		def find_name
+
+			@html_string.match( NAME_REGEX ).captures.join unless @html_string.match( NAME_REGEX ).nil?
+
+		end
+
+
+		def run_regex
+
+			# find opening tag
+				# store in var for first node
+			type = find_tag
+				# delete from string
+			# find class, id, name
+		  classes = find_classes
+
+		  id = find_id
+
+		  name = find_name
+
+binding.pry
+
+		  @current_node = Tag.new( type, classes, id, name )
+
+		  @list.add_node( @current_node )
+
+		  binding.pry
+				# if none, move on
+				# if found - store in node
+					# delete from string
+			# find next tag
+				# if none
+				# node empty
+			# find the next opening tag
+			# do this until string is empty
+
+			# when reprinting the string
+				# manufacture the < >, /> and =
+				# all content pulled from structs in linked list
 
 
 
 	end
 
 
-	def run_regex
-
-
-
-
-		# find opening tag
-			# store in var for first node
-			# delete from string
-		# find class, id, name
-			# if none, move on
-			# if found - store in node
-				# delete from string
-		# find next tag
-			# if none
-			# node empty
-		# find the next opening tag
-		# do this until string is empty
-
-		# when reprinting the string
-			# manufacture the < >, /> and =
-			# all content pulled from structs in linked list
-
-
-	type = @html_string.match( OPEN_TAG_REGEX ).captures.join
-
-
-	classes = @html_string.match( CLASS_REGEX).captures.join.split(' ') unless @html_string.match( CLASS_REGEX ).nil?
-
-	id = @html_string.match( ID_REGEX ).captures.join unless @html_string.match( ID_REGEX ).nil?
-
-	name = @html_string.match( NAME_REGEX ).captures.join unless @html_string.match( NAME_REGEX ).nil?
 
 end
 
 
-
-end
-
-
-#finds just content of first tag
-# /^<[a-z]*\d?>(.*?)</
-
-# finds anything between > ... <
-# >(.*?)<
 
 parse = ParseHTML.new( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/file.txt' )
 parse.process_html
