@@ -49,8 +49,6 @@ class ParseHTML
 
 			@current_node = nil
 
-			@tree = Tree.new
-
 		end
 
 		def process_html
@@ -66,9 +64,18 @@ class ParseHTML
 			@html_string = arr.join
 
 
-
 		end
 
+
+		def generate_root
+
+		  @current_node = Node.new( find_tag, find_classes, find_id, find_name, tag_content )
+
+		  @tree = Tree.new( @current_node )
+
+		  parse
+
+	  end
 
 
 	def parse
@@ -78,7 +85,22 @@ class ParseHTML
 	  @current_node = Node.new( find_tag, find_classes, find_id, find_name, tag_content )
 
 	 	# add node as parent
+	 	if closing_tag
 
+	 		puts "hello"
+
+	 	else
+
+	 		# if there is another new tag
+
+	 		new_node = Node.new( find_tag, find_classes, find_id, find_name, tag_content )
+	 		# a new node needs to be made
+	 		# the new node becomes the current nodes child
+	 		new_node.parent = @current_node
+	 		@current_node.child = new_node
+	 		# the new node has the current node as parent
+
+	 	end
 	 	# add node as child
 
 	 	# add node without child
@@ -160,5 +182,5 @@ end
 
 parse = ParseHTML.new( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/file.txt' )
 parse.process_html
-parse.parse
+parse.generate_root
 
