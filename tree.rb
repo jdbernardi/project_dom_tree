@@ -7,16 +7,36 @@ class Tree
 
 		@root = node
 
-    @current_node = nil
+    @current_node = @root
 
     @count = 1
 
 	end
 
 
-	def add_node( node, relation = nil )
+	def add_node( node )
 
-		@root ? insert_node( node, relation ) : @root = node
+		@current_node.children << node
+		node.parent = @current_node
+
+		@current_node = node
+
+	  binding.pry
+
+
+	end
+
+
+	def create_leaf
+
+
+		@current_node.children = []
+
+		#have to go back up the tree for more children
+		@current_node = @current_node.parent
+
+
+	  binding.pry
 
 
 	end

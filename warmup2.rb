@@ -42,80 +42,66 @@ Node = Struct.new( :type, :class, :id, :name, :content, :parent, :children )
 class ParseHTML
 
 
-		def initialize( file )
+	def initialize( file )
 
-			@html = File.open( file, "r" )
-			@html_string = nil
+		@html = File.open( file, "r" )
+		@html_string = nil
 
-			@current_node = nil
+		@current_node = nil
 
-		end
+	end
 
-		def process_html
+	def process_html
 
-			arr = []
+		arr = []
 
-			@html.readlines.each do | w |
+		@html.readlines.each do | w |
 
-				arr << w.strip
-
-			end
-
-			@html_string = arr.join
-
+			arr << w.strip
 
 		end
 
+		@html_string = arr.join
 
-		def generate_root
 
-		  @current_node = Node.new( find_tag, find_classes, find_id, find_name, tag_content )
+	end
 
-		  @tree = Tree.new( @current_node )
 
-		  parse
+	def generate_root
 
-	  end
+	  @current_node = Node.new( find_tag, find_classes, find_id, find_name, tag_content, nil, [] )
+
+	  @tree = Tree.new( @current_node )
+
+	  parse
+
+  end
 
 
 	def parse
 
 		return if @html_string == ''
+binding.pry
+		if closing_tag
 
-	  @current_node = Node.new( find_tag, find_classes, find_id, find_name, tag_content )
+			@tree.create_leaf
 
-	 	# add node as parent
-	 	if closing_tag
+		else
 
-	 		puts "hello"
+			new_node = create_node
+			@tree.add_node( new_node )
 
-	 	else
-
-	 		# if there is another new tag
-
-	 		new_node = Node.new( find_tag, find_classes, find_id, find_name, tag_content )
-	 		# a new node needs to be made
-	 		# the new node becomes the current nodes child
-	 		new_node.parent = @current_node
-	 		@current_node.child = new_node
-	 		# the new node has the current node as parent
-
-	 	end
-	 	# add node as child
-
-	 	# add node without child
-
-	  #if closing_tag
-
-	  #	@tree.children = []
-
-	  # if there is a closing tag, no children
+	  end
 
 
-	  binding.pry
+  end
 
 
 
+
+  def create_node
+
+  	return Node.new( find_tag, find_classes, find_id, find_name, tag_content, nil, [] )
 
   end
 
