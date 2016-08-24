@@ -114,14 +114,14 @@ class ParseHTML
 
 		  @html_string = @html_string.sub( ENTIRE_OPEN_TAG, '' )
 
-		  i = 0
 		  content = []
 
-		  while @html_string[ i ] != '<'
-binding.pry
-		  	content << @html_string[ i ] unless @html_string[ i ].nil?
+		  while @html_string[ 0 ] != '<' && !@html_string[ 0 ].nil?
 
-		  	i += 1
+
+		  	content << @html_string[ 0 ]
+
+		  	@html_string = @html_string[1..-1]
 
 		  end
 
