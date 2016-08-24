@@ -3,24 +3,30 @@ class Tree
 
 	attr_reader :root
 
-	def initialize( node )
+	def initialize( node = nil )
 
 		@root = node
 
-    @current_node = @root
+    @current_node = nil
 
     @count = 1
 
 	end
 
 
-	def add_node
+	def add_node( node )
 
-
+		@root ? insert_node( node ) : @root = node
 
 	end
 
 
+	def insert_node( node )
+
+		# this node will always have a parent
+		add_parent
+
+	end
 
 
   def add_parent( parent, new_node )

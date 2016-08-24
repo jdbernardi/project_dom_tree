@@ -40,102 +40,94 @@ Node = Struct.new( :type, :class, :id, :name, :content, :parent, :children )
 class ParseHTML
 
 
-		def initialize( file )
+	def initialize( file )
 
-			@html = File.open( file, "r" )
-			@html_string = nil
+		@html = File.open( file, "r" )
+		@html_string = nil
 
-			@current_node = nil
+		@current_node = nil
 
-			@tree = nil
+		@tree = Tree.new
 
-		end
+	end
 
-		def process_html
+	def process_html
 
-			arr = []
+		arr = []
 
-			@html.readlines.each do | w |
+		@html.readlines.each do | w |
 
-				arr << w.strip
-
-			end
-
-			@html_string = arr.join
-
-
+			arr << w.strip
 
 		end
 
-
-		def find_tag
-
-			return @html_string.match( OPEN_TAG_REGEX ).captures.join
-
-		end
-
-
-		def find_classes
-
-			return @html_string.match( CLASS_REGEX).captures.join.split(' ') unless @html_string.match( CLASS_REGEX ).nil?
-
-		end
-
-		def find_id
-
-			return @html_string.match( ID_REGEX ).captures.join unless @html_string.match( ID_REGEX ).nil?
-
-		end
-
-		def find_name
-
-			@html_string.match( NAME_REGEX ).captures.join unless @html_string.match( NAME_REGEX ).nil?
-
-		end
-
-
-		def run_regex
-
-		  @current_node = Node.new( find_tag, find_classes, find_id, find_name )
-
-		  @tree.nil? ? @tree = Tree.new( @current_node ) : @tree.add_nodde( @current_node )
-
-		  @html_string = @html_string.sub( ENTIRE_OPEN_TAG, '' )
-
-		  content = []
-
-		  while @html_string[ 0 ] != '<' && !@html_string[ 0 ].nil?
-
-
-		  	content << @html_string[ 0 ]
-
-		  	@html_string = @html_string[1..-1]
-
-		  end
-
-		  if !content.empty?
-
-		  	@current_node.content = content.join
-
-		  end
-binding.pry
-				# if none, move on
-				# if found - store in node
-					# delete from string
-			# find next tag
-				# if none
-				# node empty
-			# find the next opening tag
-			# do this until string is empty
-
-			# when reprinting the string
-				# manufacture the < >, /> and =
-				# all content pulled from structs in linked list
+		@html_string = arr.join
 
 
 
 	end
 
+
+	def find_tag
+
+		return @html_string.match( OPEN_TAG_REGEX ).captures.join
+
+	end
+
+
+	def find_classes
+
+		return @html_string.match( CLASS_REGEX).captures.join.split(' ') unless @html_string.match( CLASS_REGEX ).nil?
+
+	end
+
+	def find_id
+
+		return @html_string.match( ID_REGEX ).captures.join unless @html_string.match( ID_REGEX ).nil?
+
+	end
+
+	def find_name
+
+		@html_string.match( NAME_REGEX ).captures.join unless @html_string.match( NAME_REGEX ).nil?
+
+	end
+
+
+
+
+
+	def run_regex
+
+	  @current_node = Node.new( find_tag, find_classes, find_id, find_name )
+
+	  @tree.add_node( @current_node )
+
+	  get_tag_content
+
+
+
+  end
+
+
+	def get_tag_content
+
+		@html_string = @html_string.sub( ENTIRE_OPEN_TAG, '' )
+
+	  content = []
+
+	  while @html_string[ 0 ] != '<' && !@html_string[ 0 ].nil?
+
+
+	  	content << @html_string[ 0 ]
+
+	  	@html_string = @html_string[1..-1]
+
+	  end
+
+	 	@current_node.content = content.join unless content.empty?
+
+	end
 
 
 end
