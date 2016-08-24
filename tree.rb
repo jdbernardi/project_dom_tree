@@ -1,7 +1,7 @@
 require 'pry'
 class Tree
 
-	attr_reader :root
+	attr_reader :root, :current_node
 
 	def initialize( node = nil )
 
@@ -14,9 +14,10 @@ class Tree
 	end
 
 
-	def add_node( node )
+	def add_node( node, relation = nil )
 
-		@root ? insert_node( node ) : @root = node
+		@root ? insert_node( node, relation ) : @root = node
+
 
 	end
 
@@ -24,7 +25,7 @@ class Tree
 	def insert_node( node )
 
 		# this node will always have a parent
-		add_parent
+
 
 	end
 

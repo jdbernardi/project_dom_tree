@@ -23,7 +23,9 @@ require_relative 'tree.rb'
 		# <([^\/].*?)>
 		ALL_OPEN_TAGS_REGEX = /<([^\/].*?)>/
 
-		ALL_CLOSING_TAGS_REGEX = /<\/(.*?)>/
+		#ALL_CLOSING_TAGS_REGEX = /<\/(.*?)>/
+
+		CLOSING_TAG_REGEX = /^<\/(.*?)>/
 
 		CLASS_REGEX = /class[ = ]*[",'](.*?)[",']/
 
@@ -40,32 +42,61 @@ Node = Struct.new( :type, :class, :id, :name, :content, :parent, :children )
 class ParseHTML
 
 
-	def initialize( file )
+		def initialize( file )
 
-		@html = File.open( file, "r" )
-		@html_string = nil
+			@html = File.open( file, "r" )
+			@html_string = nil
 
-		@current_node = nil
+			@current_node = nil
 
-		@tree = Tree.new
-
-	end
-
-	def process_html
-
-		arr = []
-
-		@html.readlines.each do | w |
-
-			arr << w.strip
+			@tree = Tree.new
 
 		end
 
-		@html_string = arr.join
+		def process_html
+
+			arr = []
+
+			@html.readlines.each do | w |
+
+				arr << w.strip
+
+			end
+
+			@html_string = arr.join
 
 
 
-	end
+		end
+
+
+
+	def parse
+
+		return if @html_string == ''
+
+	  @current_node = Node.new( find_tag, find_classes, find_id, find_name, tag_content )
+
+	 	# add node as parent
+
+	 	# add node as child
+
+	 	# add node without child
+
+	  #if closing_tag
+
+	  #	@tree.children = []
+
+	  # if there is a closing tag, no children
+
+
+	  binding.pry
+
+
+
+
+  end
+
 
 
 	def find_tag
@@ -95,22 +126,15 @@ class ParseHTML
 
 
 
+	def closing_tag
 
+		return @html_string.match( CLOSING_TAG_REGEX ).captures.join unless @html_string.match( CLOSING_TAG_REGEX ).nil?
 
-	def run_regex
-
-	  @current_node = Node.new( find_tag, find_classes, find_id, find_name )
-
-	  @tree.add_node( @current_node )
-
-	  get_tag_content
+	end
 
 
 
-  end
-
-
-	def get_tag_content
+	def tag_content
 
 		@html_string = @html_string.sub( ENTIRE_OPEN_TAG, '' )
 
@@ -125,7 +149,7 @@ class ParseHTML
 
 	  end
 
-	 	@current_node.content = content.join unless content.empty?
+	  return content.join unless content.empty?
 
 	end
 
@@ -136,5 +160,5 @@ end
 
 parse = ParseHTML.new( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/file.txt' )
 parse.process_html
-parse.run_regex
+parse.parse
 
