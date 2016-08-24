@@ -15,7 +15,7 @@
 
 
 require 'pry'
-require_relative 'linked_list'
+require_relative 'tree.rb'
 
 		OPEN_TAG_REGEX = /^<([^\s|>]+)/
 	# for establishing #tags...find all groups of tags
@@ -34,7 +34,7 @@ require_relative 'linked_list'
 		ENTIRE_OPEN_TAG = /^<.*?>/
 
 
-Tag = Struct.new( :type, :class, :id, :name, :content )
+Node = Struct.new( :type, :class, :id, :name, :content, :parent, :children )
 
 
 class ParseHTML
@@ -47,7 +47,7 @@ class ParseHTML
 
 			@current_node = nil
 
-			@list = LinkedList.new
+			@tree = nil
 
 		end
 
@@ -96,21 +96,9 @@ class ParseHTML
 
 		def run_regex
 
-			# find opening tag
-				# store in var for first node
-			type = find_tag
-				# delete from string
-			# find class, id, name
-		  classes = find_classes
+		  @current_node = Node.new( find_tag, find_classes, find_id, find_name )
 
-		  id = find_id
-
-		  name = find_name
-
-		  @current_node = Tag.new( type, classes, id, name )
-
-		  @list.add_node( @current_node )
-
+		  @tree.nil? ? @tree = Tree.new( @current_node ) : @tree.add_nodde( @current_node )
 
 		  @html_string = @html_string.sub( ENTIRE_OPEN_TAG, '' )
 
