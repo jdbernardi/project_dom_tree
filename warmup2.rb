@@ -68,7 +68,7 @@ class ParseHTML
 		if closing_tag
 
 			remove_closing_tag
-			@tree.create_leaf
+			@tree.create_leaf( @current_node )
 
 		else
 

@@ -27,13 +27,10 @@ class Tree
 
 
 
-	def create_leaf
-
-
-		@current_node.children = []
+	def create_leaf( node )
 
 		#have to go back up the tree for more children
-		@current_node = @current_node.parent
+		@current_node = node
 
 
 	end
