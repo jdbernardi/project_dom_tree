@@ -36,14 +36,6 @@ class Tree
 	end
 
 
-  def add_parent( parent, new_node )
-
-    parent.children << new_node
-
-    new_node.parent = parent
-
-  end
-
 
   def print
 
