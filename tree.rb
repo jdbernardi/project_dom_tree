@@ -23,9 +23,8 @@ class Tree
 
 		@count += 1
 
-		inspect
-
 	end
+
 
 
 	def create_leaf

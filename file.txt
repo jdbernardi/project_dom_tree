@@ -5,6 +5,9 @@
   </p>
   <div>
     more div text
+    <h2>
+    	I'm a header
+    </h2>
   </div>
   div text after
 </div>

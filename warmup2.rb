@@ -1,27 +1,10 @@
-
-#storing tags in a Data Structure
-# reading in the html file
-# a tag will begin with < and we use a regex to grab that
-# the first tag will be the root
-# a tag will always have a tag
-	# name, class, id will be optional
-	# the tag will have children
-	# the children will have a parent
-# will need to find
-	# opening tag
-		# closing tag
-		# everything in between
-	# each pass will be the next child
-
-
 require 'pry'
+
 require_relative 'tree.rb'
 
 		OPEN_TAG_REGEX = /^<([^\s|>]+)/
-	# for establishing #tags...find all groups of tags
-	# this captures all opening tags
-		# <([^\/].*?)>
-		ALL_OPEN_TAGS_REGEX = /<([^\/].*?)>/
+
+		#ALL_OPEN_TAGS_REGEX = /<([^\/].*?)>/
 
 		#ALL_CLOSING_TAGS_REGEX = /<\/(.*?)>/
 
