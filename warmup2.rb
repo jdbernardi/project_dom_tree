@@ -162,7 +162,7 @@ end
 
 
 
-parse = ParseHTML.new( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/file.txt' )
+parse = ParseHTML.new( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
 parse.process_html
 parse.generate_root
 parse.print
