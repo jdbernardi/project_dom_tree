@@ -56,6 +56,7 @@ class Tree
   end
 
 
+
   def inspect
 
     puts "Tree has #{ @count } nodes."

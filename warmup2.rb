@@ -3,7 +3,7 @@
 # reading in the html file
 # a tag will begin with < and we use a regex to grab that
 # the first tag will be the root
-# a tag will always have a type
+# a tag will always have a tag
 	# name, class, id will be optional
 	# the tag will have children
 	# the children will have a parent
@@ -36,7 +36,7 @@ require_relative 'tree.rb'
 		ENTIRE_OPEN_TAG = /^<.*?>/
 
 
-Node = Struct.new( :type, :class, :id, :name, :content, :parent, :children )
+Node = Struct.new( :tag, :class, :id, :name, :content, :parent, :children )
 
 
 class ParseHTML
@@ -171,7 +171,7 @@ class ParseHTML
 
 	def print
 
-		@tree.print
+		binding.pry
 
 	end
 
