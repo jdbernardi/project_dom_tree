@@ -21,8 +21,9 @@ class Tree
 
 		@current_node = node
 
-	  binding.pry
+		@count += 1
 
+		inspect
 
 	end
 
@@ -34,17 +35,6 @@ class Tree
 
 		#have to go back up the tree for more children
 		@current_node = @current_node.parent
-
-
-	  binding.pry
-
-
-	end
-
-
-	def insert_node( node )
-
-		# this node will always have a parent
 
 
 	end
@@ -59,25 +49,11 @@ class Tree
   end
 
 
+  def print
 
-	def add_child( parent )
+  	binding.pry
 
-		moves = within_board?( [ parent.x, parent.y ])
-
-	  moves.each do | coords |
-
-      new_node = Move.new( coords[ 0 ], coords[ 1 ], parent.depth + 1, [], nil )
-
-      add_parent( @current_node, new_node )
-
-    end
-
-    return parent
-
-	end
-
-
-
+  end
 
 
   def inspect

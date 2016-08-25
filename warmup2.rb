@@ -81,9 +81,10 @@ class ParseHTML
 	def parse
 
 		return if @html_string == ''
-binding.pry
+
 		if closing_tag
 
+			remove_closing_tag
 			@tree.create_leaf
 
 		else
@@ -93,10 +94,16 @@ binding.pry
 
 	  end
 
+	  parse
 
   end
 
 
+  def remove_closing_tag
+
+  	@html_string = @html_string.sub( ENTIRE_OPEN_TAG, '' )
+
+  end
 
 
   def create_node
@@ -109,7 +116,7 @@ binding.pry
 
 	def find_tag
 
-		return @html_string.match( OPEN_TAG_REGEX ).captures.join
+		return @html_string.match( OPEN_TAG_REGEX ).captures.join unless @html_string.match( OPEN_TAG_REGEX ).nil?
 
 	end
 
@@ -162,6 +169,12 @@ binding.pry
 	end
 
 
+	def print
+
+		@tree.print
+
+	end
+
 end
 
 
@@ -169,4 +182,5 @@ end
 parse = ParseHTML.new( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/file.txt' )
 parse.process_html
 parse.generate_root
+parse.print
 
