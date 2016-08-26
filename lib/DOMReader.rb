@@ -69,6 +69,6 @@ end #/.DOMReader
 
 
 dom = DOMReader.new
-dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/file.txt' )
+dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
 dom.print
 

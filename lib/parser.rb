@@ -132,14 +132,14 @@ class Parser
 
 	def print
 
-		@current_node = @tree.root
+		current_node = @tree.root
 
-		while @current_node != nil
+		while current_node != nil
 
-			puts "<#{@current_node.tag}>" unless !@current_node.tag
+			puts "<#{current_node.tag}>" unless !current_node.tag
 
 
-			@current_node = @current_node.children[0]
+			current_node = current_node.children[0]
 
 		end
 
