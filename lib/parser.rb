@@ -4,6 +4,10 @@ require_relative 'node'
 
 require_relative 'tree.rb'
 
+require_relative 'render.rb'
+
+
+
 		OPEN_TAG_REGEX = /^<([^\s|>]+)/
 
 		#ALL_OPEN_TAGS_REGEX = /<([^\/].*?)>/
@@ -12,6 +16,7 @@ require_relative 'tree.rb'
 
 		CLOSING_TAG_REGEX = /^<\/(.*?)>/
 
+		# this looks ahead and doesn't grab immediate class if any
 		CLASS_REGEX = /class[ = ]*[",'](.*?)[",']/
 
 		ID_REGEX = /id[ = ]*[",'](.*?)[",']/
@@ -28,6 +33,7 @@ class Parser
 	def initialize( html_string )
 
 		@tree = Tree.new
+		@render = Render.new
 
 		@html_string = html_string
 
@@ -58,6 +64,14 @@ class Parser
 	  parse
 
   end
+
+
+  def render
+
+  	@render.render( @tree.root )
+
+  end
+
 
 
   def remove_closing_tag
@@ -129,21 +143,6 @@ class Parser
 
 	end
 
-
-	def print
-
-		current_node = @tree.root
-
-		while current_node != nil
-
-			puts "<#{current_node.tag}>" unless !current_node.tag
-
-
-			current_node = current_node.children[0]
-
-		end
-
-	end
 
 end
 

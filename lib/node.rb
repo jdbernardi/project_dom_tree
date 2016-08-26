@@ -10,8 +10,8 @@ class Node
 		@cls = cls
 		@id = id
 		@name = name
-		@content = []
-		@children = []
+		@content = content
+		@children = children
 		@parent = parent
 
 	end

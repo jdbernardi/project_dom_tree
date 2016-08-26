@@ -36,6 +36,8 @@ class DOMReader
 		@searcher = Searcher.new
 		# html file
 		@html = nil
+		#render class
+
 
 	end
 
@@ -49,19 +51,13 @@ class DOMReader
 	end
 
 
-	def print
+	def render
 
-		@parser.print
+		@parser.render
 
 	end
 # from here the reader will call on the fucntions and
 # send data to render for output
-
-
-
-
-
-
 
 
 
@@ -70,5 +66,5 @@ end #/.DOMReader
 
 dom = DOMReader.new
 dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
-dom.print
+dom.render
 
