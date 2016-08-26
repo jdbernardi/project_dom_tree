@@ -1,11 +1,13 @@
 require 'pry'
+require_relative 'node'
+
 class Tree
 
 	attr_reader :root, :current_node
 
-	def initialize( node = nil )
+	def initialize
 
-		@root = node
+		@root = Node.new( 'document' )
 
     @current_node = @root
 
@@ -16,6 +18,7 @@ class Tree
 
 	def add_node( node )
 
+binding.pry
 		@current_node.children << node
 		node.parent = @current_node
 

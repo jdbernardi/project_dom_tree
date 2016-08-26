@@ -30,9 +30,8 @@ class DOMReader
 	def initialize
 
 		# the tree
-		@tree = Tree.new
 		# the parser
-		@parser = Parser.new
+		@parser = nil
 		# searcher
 		@searcher = Searcher.new
 		# html file
@@ -45,7 +44,7 @@ class DOMReader
 		# here the file will be parsed and fed into the tree
 		@html = HTML.new( file )
 
-		@tree.build( @html.string )
+		@parser = Parser.new( @html.string )
 
 	end
 
@@ -65,3 +64,4 @@ end #/.DOMReader
 
 dom = DOMReader.new
 dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
+
