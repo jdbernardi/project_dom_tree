@@ -4,7 +4,7 @@ class Node
 
 	attr_accessor :tag, :cls, :id, :name, :content, :children, :parent
 
-	def initialize( tag = nil, cls = [], id = nil, name = nil, content = [], children = [], parent = nil )
+	def initialize( tag = nil, cls = [], id = nil, name = nil, content = [], children = [], parent = [] )
 
 		@tag = tag
 		@cls = cls

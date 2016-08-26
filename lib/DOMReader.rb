@@ -48,6 +48,12 @@ class DOMReader
 
 	end
 
+
+	def print
+
+		@parser.print
+
+	end
 # from here the reader will call on the fucntions and
 # send data to render for output
 
@@ -63,5 +69,6 @@ end #/.DOMReader
 
 
 dom = DOMReader.new
-dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
+dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/file.txt' )
+dom.print
 

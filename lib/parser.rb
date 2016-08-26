@@ -51,6 +51,7 @@ class Parser
 
 			new_node = create_node
 			@tree.add_node( new_node )
+			@current_node = new_node
 
 	  end
 
@@ -131,7 +132,15 @@ class Parser
 
 	def print
 
-		binding.pry
+		@current_node = @tree.root
+
+		while @current_node != nil
+
+			puts @current_node.tag
+
+			@current_node = @current_node.children[0]
+
+		end
 
 	end
 

@@ -3,7 +3,7 @@ require_relative 'node'
 
 class Tree
 
-	attr_reader :root, :current_node
+	attr_reader :root, :current_node, :children
 
 	def initialize
 
@@ -18,7 +18,7 @@ class Tree
 
 	def add_node( node )
 
-binding.pry
+
 		@current_node.children << node
 		node.parent = @current_node
 
