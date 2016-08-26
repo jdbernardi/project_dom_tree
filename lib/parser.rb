@@ -136,7 +136,8 @@ class Parser
 
 		while @current_node != nil
 
-			puts @current_node.tag
+			puts "<#{@current_node.tag}>" unless !@current_node.tag
+
 
 			@current_node = @current_node.children[0]
 
