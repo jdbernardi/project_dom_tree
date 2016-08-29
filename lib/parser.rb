@@ -53,6 +53,14 @@ class Parser
 			remove_closing_tag
 			@tree.create_leaf( @current_node )
 
+		elsif special_tag
+
+			@tree.add_special_tag( find_tag, tag_content )
+
+		elsif !find_tag && tag_content
+
+			@tree.add_content_to_parent( tag_content )
+
 		else
 
 			new_node = create_node
@@ -71,6 +79,13 @@ class Parser
   	@render.render( @tree.root )
 
   end
+
+  def special_tag
+
+  	find_tag == 'em' || find_tag == 'span'
+
+  end
+
 
 
 
