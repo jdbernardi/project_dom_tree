@@ -13,9 +13,7 @@
 # parser handle text before and after nested tags?
 # tree have correct number of total nodes?
 
-# then create a Node Renderer
-# outputs
-	# total nodes
+
 require 'pry'
 
 require_relative 'html'
@@ -26,17 +24,14 @@ require_relative 'tree'
 
 class DOMReader
 
-  # in the main file, this will create...
 	def initialize
 
-		# the tree
-		# the parser
+
 		@parser = nil
-		# searcher
+
 		@searcher = Searcher.new
-		# html file
+
 		@html = nil
-		#render class
 
 
 	end
@@ -56,8 +51,7 @@ class DOMReader
 		@parser.render
 
 	end
-# from here the reader will call on the fucntions and
-# send data to render for output
+
 
 
 

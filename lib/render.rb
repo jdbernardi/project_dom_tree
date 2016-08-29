@@ -12,7 +12,7 @@ class Render
 
 			print "#{current_node.content}"
 
-			print "</#{current_node.tag}>"
+			print "</#{current_node.tag}>" if current_node.children.empty?
 
 			puts ''
 
@@ -20,8 +20,13 @@ class Render
 
 		end
 
+	end #/.render
+
+
+
+	def inspect( node )
+
 
 	end
-
 
 end #/.Parser

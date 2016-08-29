@@ -20,8 +20,6 @@ class Tree
 
 	def add_node( node )
 
-
-
 		@current_node.children << node
 
 		node.parent = @current_node
@@ -33,6 +31,17 @@ class Tree
 		@count += 1
 
 	end
+
+
+
+	def create_leaf( node )
+
+		remove_from_stack
+		#have to go back up the tree for more children
+		@current_node = node
+
+	end
+
 
 
 	def add_to_stack
@@ -48,6 +57,8 @@ class Tree
 
 	end
 
+
+
 	def add_content_to_parent( content )
 
 		@current_node.content << content
@@ -60,26 +71,6 @@ class Tree
 		@current_node.content << "<#{tag}>" + content + "</#{tag}>"
 
 	end
-
-
-	def create_leaf( node )
-
-		remove_from_stack
-		#have to go back up the tree for more children
-		@current_node = node
-
-
-
-	end
-
-
-
-  def print
-
-  	binding.pry
-
-  end
-
 
 
   def inspect
