@@ -57,6 +57,12 @@ class Parser
 
 			@tree.add_special_tag( find_tag, tag_content )
 
+			remove_closing_tag
+
+			@tree.add_content_to_parent( tag_content ) unless tag_content.nil?
+
+
+
 		elsif !find_tag && tag_content
 
 			@tree.add_content_to_parent( tag_content )
