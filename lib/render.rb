@@ -6,19 +6,23 @@ class Render
 
 		current_node = root
 
-		while current_node != nil
+		return if current_node.children.nil?
 
-			print "<#{current_node.tag}>" unless !current_node.tag
+		current_node.children.each do | child |
 
-			print "#{current_node.content}"
+			print "<#{child.tag}>" unless !child.tag
 
-			print "</#{current_node.tag}>" if current_node.children.empty?
+			print "#{child.content}"
+
+			print "</#{child.tag}>" if child.children.empty?
 
 			puts ''
 
-			current_node = current_node.children[0]
+			render( child )
 
 		end
+
+
 
 	end #/.render
 

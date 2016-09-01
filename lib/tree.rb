@@ -11,7 +11,7 @@ class Tree
 
     @current_node = @root
 
-    @stack = [ @root ]
+    #@stack = [ @root ]
 
     @count = 1
 
@@ -26,7 +26,7 @@ class Tree
 
 		@current_node = node
 
-		add_to_stack
+		#add_to_stack
 
 		@count += 1
 
@@ -36,26 +36,27 @@ class Tree
 
 	def create_leaf( node )
 
-		remove_from_stack
+		#remove_from_stack
 		#have to go back up the tree for more children
-		@current_node = node
+		#remove parent to get printout to work
+		@current_node = node.parent
 
 	end
 
 
 
-	def add_to_stack
+	#def add_to_stack
 
-		@stack << @current_node
+		#@stack << @current_node
 
-	end
+	#end
 
 
-	def remove_from_stack
+	#def remove_from_stack
 
-		@stack.pop
+		#@stack.pop
 
-	end
+	#end
 
 
 

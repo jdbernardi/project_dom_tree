@@ -44,6 +44,8 @@ class Parser
 	end
 
 
+
+
 	def parse
 
 		return if @html_string == ''
@@ -163,6 +165,7 @@ class Parser
 	  return content.join unless content.empty?
 
 	end
+
 
 
 end
