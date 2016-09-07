@@ -121,7 +121,13 @@ class Parser
 
 	def find_classes
 
-		return @html_string.match( CLASS_REGEX).captures.join.split(' ') unless @html_string.match( CLASS_REGEX ).nil?
+		opening_tag = open_tag
+
+		if opening_tag.nil?
+
+			return opening_tag.match( CLASS_REGEX ).captures.join.split(' ')
+
+		end
 
 	end
 
@@ -134,6 +140,15 @@ class Parser
 	def find_name
 
 		@html_string.match( NAME_REGEX ).captures.join unless @html_string.match( NAME_REGEX ).nil?
+
+	end
+
+
+	def open_tag
+
+		open_tag = @html_string.match( ENTIRE_OPEN_TAG ).captures.join
+
+		return open_tag unless !open_tag
 
 	end
 
