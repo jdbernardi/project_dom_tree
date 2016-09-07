@@ -10,13 +10,10 @@ require_relative 'render.rb'
 
 		OPEN_TAG_REGEX = /^<([^\s|>]+)/
 
-		#ALL_OPEN_TAGS_REGEX = /<([^\/].*?)>/
-
-		#ALL_CLOSING_TAGS_REGEX = /<\/(.*?)>/
+		OPEN_TAG_CONTENT = /^<(.*?)>/
 
 		CLOSING_TAG_REGEX = /^<\/(.*?)>/
 
-		# this looks ahead and doesn't grab immediate class if any
 		CLASS_REGEX = /class[ = ]*[",'](.*?)[",']/
 
 		ID_REGEX = /id[ = ]*[",'](.*?)[",']/
@@ -48,36 +45,22 @@ class Parser
 
 	def parse
 
-		return if @html_string == ''
+		return if @html_string == ""
 
-		if closing_tag
+		attributes = find_attributes
+		node = create_node( attributes )
 
-			remove_closing_tag
-			@tree.create_leaf( @current_node )
+		@tree.add_node( node )
 
-		elsif special_tag
+		parse
 
-			@tree.add_special_tag( find_tag, tag_content )
-
-			remove_closing_tag
-
-			@tree.add_content_to_parent( tag_content ) unless tag_content.nil?
+  end
 
 
+  def create_node( attrs )
 
-		elsif !find_tag && tag_content
-
-			@tree.add_content_to_parent( tag_content )
-
-		else
-
-			new_node = create_node
-			@tree.add_node( new_node )
-			@current_node = new_node
-
-	  end
-
-	  parse
+  	node = Node.new( attrs[ :tag ], attrs[ :cls ],
+										 attrs[ :id ], attrs[ :name ], tag_content  )
 
   end
 
@@ -88,77 +71,38 @@ class Parser
 
   end
 
-  def special_tag
-
-  	find_tag == 'em' || find_tag == 'span'
-
-  end
 
 
+	def find_attributes
 
+		attributes = {}
 
-  def remove_closing_tag
+		return nil if @html_string.match( OPEN_TAG_CONTENT ).captures.nil?
 
-  	@html_string = @html_string.sub( ENTIRE_OPEN_TAG, '' )
+		open_tag = @html_string.match( ENTIRE_OPEN_TAG )[ 0 ]
 
-  end
-
-
-  def create_node
-
-  	return Node.new( find_tag, find_classes, find_id, find_name, tag_content, [], [] )
-
-  end
-
-
-
-	def find_tag
-
-		return @html_string.match( OPEN_TAG_REGEX ).captures.join unless @html_string.match( OPEN_TAG_REGEX ).nil?
+		attributes = check_attributes( attributes, open_tag )
 
 	end
 
 
-	def find_classes
+	def check_attributes( attributes, open_tag )
 
-		opening_tag = open_tag
+		attributes[ :tag ] = open_tag.match( OPEN_TAG_REGEX ).captures.join
 
-		if opening_tag.nil?
+		attributes[ :cls ] = open_tag.match( CLASS_REGEX ).captures.join(' ') unless open_tag.match( CLASS_REGEX ).nil?
 
-			return opening_tag.match( CLASS_REGEX ).captures.join.split(' ')
+		attributes[ :name ] = open_tag.match( NAME_REGEX ).captures.join unless open_tag.match( NAME_REGEX ).nil?
 
-		end
+		attributes[ :id ] = open_tag.match( ID_REGEX ).captures.join unless open_tag.match( ID_REGEX ).nil?
 
-	end
 
-	def find_id
 
-		return @html_string.match( ID_REGEX ).captures.join unless @html_string.match( ID_REGEX ).nil?
-
-	end
-
-	def find_name
-
-		@html_string.match( NAME_REGEX ).captures.join unless @html_string.match( NAME_REGEX ).nil?
+		return attributes
 
 	end
 
 
-	def open_tag
-
-		open_tag = @html_string.match( ENTIRE_OPEN_TAG ).captures.join
-
-		return open_tag unless !open_tag
-
-	end
-
-
-
-	def closing_tag
-
-		return @html_string.match( CLOSING_TAG_REGEX ).captures.join unless @html_string.match( CLOSING_TAG_REGEX ).nil?
-
-	end
 
 
 

@@ -2,27 +2,25 @@ class HTML
 
 	attr_reader :string
 
-	def initialize( file )
+	def initialize( html )
 
-		@html = File.open( file, "r" )
-		@string = nil
+		@html = html
 
-		html_to_string
 
 	end
 
 
 	def html_to_string
 
-		arr = []
+		string = ''
 
-		@html.readlines.each do | w |
+		File.readlines( @html ).each do | line |
 
-			arr << w.strip
+			string += line.strip
 
 		end
 
-		@string = arr.join
+		return string
 
 	end
 

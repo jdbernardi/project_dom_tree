@@ -11,7 +11,7 @@ class Tree
 
     @current_node = @root
 
-    #@stack = [ @root ]
+    @stack = [ @root ]
 
     @count = 1
 
@@ -22,11 +22,11 @@ class Tree
 
 		@current_node.children << node
 
+		@stack << node
+
 		node.parent = @current_node
 
 		@current_node = node
-
-		#add_to_stack
 
 		@count += 1
 
@@ -44,19 +44,6 @@ class Tree
 	end
 
 
-
-	#def add_to_stack
-
-		#@stack << @current_node
-
-	#end
-
-
-	#def remove_from_stack
-
-		#@stack.pop
-
-	#end
 
 
 

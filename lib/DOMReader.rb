@@ -41,7 +41,9 @@ class DOMReader
 		# here the file will be parsed and fed into the tree
 		@html = HTML.new( file )
 
-		@parser = Parser.new( @html.string )
+		@string = @html.html_to_string
+
+		@parser = Parser.new( @string )
 
 	end
 
