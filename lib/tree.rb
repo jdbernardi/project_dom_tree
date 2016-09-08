@@ -34,11 +34,13 @@ class Tree
 
 
 
-	def create_leaf( node )
+	def create_leaf
 
-		#remove_from_stack
-		#have to go back up the tree for more children
-		#remove parent to get printout to work
+
+		return if @stack.empty?
+
+		node = @stack.pop
+
 		@current_node = node.parent
 
 	end

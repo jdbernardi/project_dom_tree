@@ -6,22 +6,7 @@ require_relative 'tree.rb'
 
 require_relative 'render.rb'
 
-
-
-		OPEN_TAG_REGEX = /^<([^\s|>]+)/
-
-		OPEN_TAG_CONTENT = /^<(.*?)>/
-
-		CLOSING_TAG_REGEX = /^<\/(.*?)>/
-
-		CLASS_REGEX = /class[ = ]*[",'](.*?)[",']/
-
-		ID_REGEX = /id[ = ]*[",'](.*?)[",']/
-
-		NAME_REGEX = /name[ = ]*[",'](.*?)[",']/
-
-		ENTIRE_OPEN_TAG = /^<.*?>/
-
+require_relative 'regex'
 
 class Parser
 
@@ -47,10 +32,21 @@ class Parser
 
 		return if @html_string == ""
 
-		attributes = find_attributes
-		node = create_node( attributes )
+		if open_tag?
 
-		@tree.add_node( node )
+			attributes = find_attributes
+
+
+			node = create_node( attributes )
+
+			@tree.add_node( node )
+
+		elsif closing_tag?
+
+			@tree.create_leaf
+			remove_tag
+
+		end
 
 		parse
 
@@ -65,6 +61,26 @@ class Parser
   end
 
 
+  def open_tag?
+
+  	return @html_string.match( OPEN_TAG_REGEX )
+
+  end
+
+
+  def closing_tag?
+
+  	return @html_string.match( CLOSING_TAG_REGEX )
+
+  end
+
+
+  def remove_tag
+
+		@html_string = @html_string.sub( ENTIRE_OPEN_TAG, '' )
+
+  end
+
   def render
 
   	@render.render( @tree.root )
@@ -77,11 +93,11 @@ class Parser
 
 		attributes = {}
 
-		return nil if @html_string.match( OPEN_TAG_CONTENT ).captures.nil?
-
 		open_tag = @html_string.match( ENTIRE_OPEN_TAG )[ 0 ]
 
 		attributes = check_attributes( attributes, open_tag )
+
+		return attributes
 
 	end
 
@@ -108,7 +124,7 @@ class Parser
 
 	def tag_content
 
-		@html_string = @html_string.sub( ENTIRE_OPEN_TAG, '' )
+		remove_tag
 
 	  content = []
 
