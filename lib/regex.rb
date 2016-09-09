@@ -1,4 +1,4 @@
-		OPEN_TAG_REGEX = /^<([^\s|>]+)/
+		OPEN_TAG_REGEX = /<(\s*\w*\s*).*?>/
 
 		OPEN_TAG_CONTENT = /^<(.*?)>/
 

@@ -9,6 +9,7 @@ class Render
 
 		current_node = root
 
+
 		return if current_node.children.nil?
 
 
@@ -16,7 +17,7 @@ class Render
 
 			print "<#{child.tag}>" unless !child.tag
 			print "#{child.content}"
-			print "</#{child.tag}>" #if child.children.empty?
+			print "</#{child.tag}>" if child.children.empty?
 			puts ''
 
 

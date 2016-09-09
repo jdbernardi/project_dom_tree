@@ -36,7 +36,6 @@ class Parser
 
 			attributes = find_attributes
 
-
 			node = create_node( attributes )
 
 			@tree.add_node( node )
