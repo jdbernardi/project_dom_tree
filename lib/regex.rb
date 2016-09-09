@@ -2,7 +2,7 @@
 
 		OPEN_TAG_CONTENT = /^<(.*?)>/
 
-		CLOSING_TAG_REGEX = /^<\/(.*?)>/
+		CLOSING_TAG_REGEX = /^<(\/)/
 
 		CLASS_REGEX = /class[ = ]*[",'](.*?)[",']/
 
