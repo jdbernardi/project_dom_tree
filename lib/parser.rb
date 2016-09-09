@@ -21,7 +21,7 @@ class Parser
 
 		@current_node = nil
 
-		parse
+		#parse
 
 	end
 
@@ -32,7 +32,23 @@ class Parser
 
 		return if @html_string == ""
 
-		if open_tag?
+		if new_node?
+
+			attributes = find_attributes
+			node = create_node( attributes )
+
+		else
+
+			check_string
+
+		end
+
+=begin
+		if special_tag?
+
+			add_to_parent
+
+		elsif new_node?
 
 			attributes = find_attributes
 
@@ -45,11 +61,63 @@ class Parser
 			@tree.create_leaf
 			remove_tag
 
+		else
+
+			binding.pry
+			add_text_to_parent
+
+
 		end
 
-		parse
+		#parse
+=end
+  end
+
+
+  def check_string
+
+  	if special_tag?
+
+  		tag = find_attributes
+
+  		@tree.add_special_tag( tag[:tag], )
+
+  	end
 
   end
+
+
+  def add_text_to_parent
+
+  	@tree.add_content_to_parent( @html_string.match( TEXT ).captures.join )
+
+  	remove_text
+
+  end
+
+
+  def remove_text
+
+		@html_string = @html_string.sub( TEXT, '' )
+
+  end
+
+
+#  def add_to_parent
+
+#  	tag = find_attributes
+
+#  	@tree.add_special_tag( tag[:tag], tag_content )
+
+
+
+#  end
+
+	def new_node?
+
+		!!(open_tag? && !special_tag?)
+
+	end
 
 
   def create_node( attrs )
@@ -62,16 +130,24 @@ class Parser
 
   def open_tag?
 
-  	return @html_string.match( OPEN_TAG_REGEX )
+  	!!@html_string.match( OPEN_TAG_REGEX )
 
   end
 
 
   def closing_tag?
 
-  	return @html_string.match( CLOSING_TAG_REGEX )
+  	!!@html_string.match( CLOSING_TAG_REGEX )
 
   end
+
+
+  def special_tag?
+
+  	!!@html_string.match( SPECIAL_TAG )
+
+  end
+
 
 
   def remove_tag
@@ -79,6 +155,15 @@ class Parser
 		@html_string = @html_string.sub( ENTIRE_OPEN_TAG, '' )
 
   end
+
+
+  def tag?
+
+  	!!@html_string.match( ENTIRE_OPEN_TAG )
+
+  end
+
+
 
   def render
 

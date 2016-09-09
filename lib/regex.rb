@@ -1,6 +1,7 @@
-		OPEN_TAG_REGEX = /<(\s*\w*\s*).*?>/
+		#OPEN_TAG_REGEX = /<(\s*\w*\s*).*?>/
 
-		#^<([^\/|\s]\s*\w*\s*).*?> causes stack error
+
+		OPEN_TAG_REGEX = /^<([^\/|\s]\s*\w*\s*).*?>/  #causes stack error
 
 		OPEN_TAG_CONTENT = /^<(.*?)>/
 
@@ -13,3 +14,7 @@
 		NAME_REGEX = /name[ = ]*[",'](.*?)[",']/
 
 		ENTIRE_OPEN_TAG = /^<.*?>/
+
+		SPECIAL_TAG = /^<(em|span)/
+
+		TEXT = /^(.*?)</
