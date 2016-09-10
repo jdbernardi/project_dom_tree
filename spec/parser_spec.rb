@@ -38,6 +38,34 @@ describe '.Parser' do
 	end
 
 
+	describe '#grab_tags' do
+
+		it 'should return a string of all content in tags' do
+
+			parser = Parser.new( "<h1 class='big' name='hi'>Hello there</h1><p>HI HI HI</p><div>Hey<em>there</em><div>You!</div></div>")
+
+			expect( parser.html_tags ).to eq( [ "<h1 class='big' name='hi'>", "</h1>", "<p>", "</p>", "<div>","<em>", "</em>", "<div>", "</div>", "</div>" ] )
+
+		end
+
+
+	end #./grab_tags
+
+
+
+	describe '#grab_content' do
+
+		it 'should grab everything in between the tags' do
+
+			parser = Parser.new( "<p>H</p><h1></h1><p>E</p><p>L</p>")
+
+			expect( parser.grab_content ).to eq( [ "","Hello", "", "", "", "Yo", "", "there", "", "","You are cool", "", ""])
+
+		end
+
+
+	end #./grab_content
+
 	describe '#open_tag' do
 
 

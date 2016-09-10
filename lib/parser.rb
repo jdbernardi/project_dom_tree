@@ -10,7 +10,7 @@ require_relative 'regex'
 
 class Parser
 
-	attr_reader :html_string, :current_node
+	attr_reader :html_string, :current_node, :html_tags, :html_content
 
 	def initialize( html_string )
 
@@ -83,6 +83,7 @@ class Parser
 
 	def grab_tags
 
+		return @html_string.scan( TAGS )
 
 	end
 
@@ -90,6 +91,7 @@ class Parser
 
 	def grab_content
 
+		return @html_string.split( TAGS )
 
 	end
 
