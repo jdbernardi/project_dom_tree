@@ -19,13 +19,19 @@ class Parser
 
 		@html_string = html_string
 
+		@html_tags = grab_tags
+
+		@html_content = grab_content
+
 		@current_node = nil
 
 		#parse
 
 	end
 
-
+#add a method that scans and then one that splits
+# two arrays that will divvy up the content we then bounce back and forth to complete
+#the regexes will sort through what each array has
 
 	def parse
 
@@ -41,6 +47,7 @@ class Parser
 			check_string
 
 		end
+
 
 =begin
 		if special_tag?
@@ -72,6 +79,19 @@ class Parser
 =end
   end
 
+
+
+	def grab_tags
+
+
+	end
+
+
+
+	def grab_content
+
+
+	end
 
   def check_string
 
