@@ -27,7 +27,6 @@ class Parser
 
 
 
-
 	def parse
 
 		return if @html_string == ""
