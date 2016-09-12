@@ -11,7 +11,7 @@ class Tree
 
     @current_node = @root
 
-    @stack = [ @root ]
+    #@stack = [ @root ]
 
     @count = 1
 
@@ -22,7 +22,7 @@ class Tree
 
 		@current_node.children << node
 
-		@stack << node
+		#@stack << node
 
 		node.parent = @current_node
 
@@ -37,13 +37,13 @@ class Tree
 	def create_leaf
 
 
-		return if @stack.empty?
+		#return if @stack.empty?
 
-		node = @stack.pop
+		#node = @stack.pop
 
-		node.children = []
+		@current_node.children = []
 
-		@current_node = node.parent
+		@current_node = @current_node.parent
 
 	end
 

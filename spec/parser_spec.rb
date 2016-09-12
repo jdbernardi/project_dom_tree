@@ -59,7 +59,7 @@ describe '.Parser' do
 
 			parser = Parser.new( "<p>H</p><h1></h1><p>E</p><p>L</p>")
 
-			expect( parser.grab_content ).to eq( [ "","Hello", "", "", "", "Yo", "", "there", "", "","You are cool", "", ""])
+			expect( parser.grab_content ).to eq( [ "", "H", "", "", "", "E", "", "L"])
 
 		end
 

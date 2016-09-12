@@ -17,7 +17,7 @@
 
 		SPECIAL_TAG = /^<(em|span)/
 
-		TEXT = /^(.*?)</
+		TEXT = /^[^<]+/
 
 		TAGS = /<[^>]+>/
 

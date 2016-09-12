@@ -19,13 +19,13 @@ class Parser
 
 		@html_string = html_string
 
-		@html_tags = grab_tags
+		#@html_tags = grab_tags
 
-		@html_content = grab_content
+		#@html_content = grab_content
 
 		@current_node = nil
 
-		#parse
+		parse
 
 	end
 
@@ -37,10 +37,13 @@ class Parser
 
 		return if @html_string == ""
 
-		if new_node?
+		if open_tag?
+
 
 			attributes = find_attributes
 			node = create_node( attributes )
+			@tree.add_node( node )
+
 
 		else
 
@@ -48,69 +51,49 @@ class Parser
 
 		end
 
+		parse
 
-=begin
-		if special_tag?
-
-			add_to_parent
-
-		elsif new_node?
-
-			attributes = find_attributes
-
-			node = create_node( attributes )
-
-			@tree.add_node( node )
-
-		elsif closing_tag?
-
-			@tree.create_leaf
-			remove_tag
-
-		else
-
-			binding.pry
-			add_text_to_parent
-
-
-		end
-
-		#parse
-=end
   end
 
 
 
-	def grab_tags
-
-		return @html_string.scan( TAGS )
-
-	end
-
-
-
-	def grab_content
-
-		return @html_string.split( TAGS )
-
-	end
-
   def check_string
 
-  	if special_tag?
+  	if closing_tag?
 
-  		tag = find_attributes
+  		remove_tag
+  		@tree.create_leaf
 
-  		@tree.add_special_tag( tag[:tag], )
+  	elsif !closing_tag? && !open_tag?
+
+  		add_text_to_parent
 
   	end
 
   end
 
 
+
+#	def grab_tags
+
+#		return @html_string.scan( TAGS )
+
+#	end
+
+
+
+#	def grab_content
+
+#		return @html_string.split( TAGS )
+
+#	end
+
+
+
+
   def add_text_to_parent
 
-  	@tree.add_content_to_parent( @html_string.match( TEXT ).captures.join )
+  	@tree.add_content_to_parent( @html_string.scan( TEXT ).join)
 
   	remove_text
 
@@ -136,7 +119,7 @@ class Parser
 
 	def new_node?
 
-		!!(open_tag? && !special_tag?)
+		!!open_tag?
 
 	end
 
@@ -163,11 +146,11 @@ class Parser
   end
 
 
-  def special_tag?
+#  def special_tag?
 
-  	!!@html_string.match( SPECIAL_TAG )
+#  	!!@html_string.match( SPECIAL_TAG )
 
-  end
+#  end
 
 
 

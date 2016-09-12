@@ -7,6 +7,7 @@ class Render
 
 	def render( root )
 
+
 		current_node = root
 
 
