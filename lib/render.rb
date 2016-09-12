@@ -14,7 +14,11 @@ class Render
 
 	  current_node.children.each do | child |
 
-			print "<#{child.tag}>" unless !child.tag
+
+			print_attributes( child )
+
+			print ">"
+
 			print "#{child.content}"
 			print "</#{child.tag}>" if child.children.empty?
 			puts ''
@@ -28,6 +32,18 @@ class Render
 	end #/.render
 
 
+
+	def print_attributes( child )
+
+		print "<#{child.tag}" if child
+
+		print " class='#{child.cls}'" if child.cls
+
+		print " name='#{child.name}'" if child.name
+
+		print " id='#{child.id}'" if child.id
+
+	end
 
 
 

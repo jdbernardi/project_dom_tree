@@ -29,8 +29,6 @@ class DOMReader
 
 		@parser = nil
 
-
-
 		@html = nil
 
 
@@ -45,6 +43,7 @@ class DOMReader
 
 		@parser = Parser.new( @string )
 
+
 	end
 
 
@@ -54,7 +53,11 @@ class DOMReader
 
 	end
 
+	def search
 
+		@parser.search
+
+	end
 
 
 end #/.DOMReader
@@ -63,6 +66,6 @@ end #/.DOMReader
 dom = DOMReader.new
 dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
 dom.render
-
+dom.search
 
 

@@ -21,17 +21,15 @@ class Parser
 
 		@current_node = nil
 
-		@search = Searcher.new
 
-
-		#parse
+		parse
 
 	end
 
 
 	def parse
 
-		return @tree.root if @html_string == ""
+		return if @html_string == ""
 
 		if open_tag?
 
@@ -52,8 +50,7 @@ class Parser
   end
 
 
-
-  def search( word )
+  def search
 
 
 
