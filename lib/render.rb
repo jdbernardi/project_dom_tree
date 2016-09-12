@@ -11,18 +11,17 @@ class Render
 
 		return if current_node.children.nil?
 
-
 	  current_node.children.each do | child |
-
 
 			print_attributes( child )
 
 			print ">"
 
-			print "#{child.content}"
-			print "</#{child.tag}>" if child.children.empty?
-			puts ''
+			print_content( child )
 
+			print_closing( child )
+
+			puts ''
 
 			render( child )
 
@@ -45,6 +44,20 @@ class Render
 
 	end
 
+
+
+	def print_content( child )
+
+			print "#{child.content}"
+
+	end
+
+
+	def print_closing( child )
+
+		print "</#{child.tag}>" if child.children.empty?
+
+	end
 
 
 	def inspect( node )

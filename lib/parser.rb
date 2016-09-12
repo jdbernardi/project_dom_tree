@@ -21,7 +21,6 @@ class Parser
 
 		@current_node = nil
 
-
 		parse
 
 	end
