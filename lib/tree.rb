@@ -11,7 +11,7 @@ class Tree
 
     @current_node = @root
 
-    #@stack = [ @root ]
+    @stack = [ @root ]
 
     @count = 1
 
@@ -22,7 +22,7 @@ class Tree
 
 		@current_node.children << node
 
-		#@stack << node
+		@stack << node
 
 		node.parent = @current_node
 
@@ -37,13 +37,13 @@ class Tree
 	def create_leaf
 
 
-		#return if @stack.empty?
+		return if @stack.empty?
 
-		#node = @stack.pop
+		node = @stack.pop
 
 		@current_node.children = []
 
-		@current_node = @current_node.parent
+		@current_node = node.parent
 
 	end
 
@@ -53,16 +53,13 @@ class Tree
 
 	def add_content_to_parent( content )
 
-		@current_node.content << content
+		node = @stack.last
+
+		node.content << content
 
 	end
 
 
-	def add_special_tag( tag, content )
-
-		@current_node.content << "<#{tag}>" + content + "</#{tag}>"
-
-	end
 
 
   def inspect
