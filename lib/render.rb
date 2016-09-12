@@ -4,7 +4,6 @@ class Render
 
 
 
-
 	def render( root )
 
 		current_node = root
@@ -31,7 +30,6 @@ class Render
 	end #/.render
 
 
-
 	def print_attributes( child )
 
 		print "<#{child.tag}" if child
@@ -56,6 +54,13 @@ class Render
 	def print_closing( child )
 
 		print "</#{child.tag}>" if child.children.empty?
+
+	end
+
+
+	def render_keyword_search( attribute, name )
+
+		binding.pry
 
 	end
 

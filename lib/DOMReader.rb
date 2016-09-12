@@ -63,9 +63,9 @@ class DOMReader
 
 	end
 
-	def search
+	def search( attribute, value )
 
-		@search.find_by_keyword
+		@search.start_keyword_search( attribute, value )
 
 	end
 
@@ -76,6 +76,6 @@ end #/.DOMReader
 dom = DOMReader.new
 dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
 dom.render
-dom.search
+dom.search("class", "top-div")
 
 
