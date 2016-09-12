@@ -33,6 +33,10 @@ class DOMReader
 
 		@search_tree = nil
 
+		@render = Render.new
+
+		@tree = nil
+
 
 	end
 
@@ -45,7 +49,9 @@ class DOMReader
 
 		@parser = Parser.new( @string )
 
-		@search_tree = @parser.parse
+		@tree = @parser.parse
+
+		@search = Searcher.new( @tree )
 
 
 	end
@@ -53,13 +59,13 @@ class DOMReader
 
 	def render
 
-		@parser.render
+		@render.render( @tree )
 
 	end
 
 	def search
 
-		Searcher.new( @search_tree )
+		@search.find_by_keyword
 
 	end
 

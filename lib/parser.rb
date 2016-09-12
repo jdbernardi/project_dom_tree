@@ -15,7 +15,6 @@ class Parser
 	def initialize( html_string )
 
 		@tree = Tree.new
-		@render = Render.new
 
 		@html_string = html_string
 
