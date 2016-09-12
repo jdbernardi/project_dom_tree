@@ -38,34 +38,6 @@ describe '.Parser' do
 	end
 
 
-	describe '#grab_tags' do
-
-		it 'should return a string of all content in tags' do
-
-			parser = Parser.new( "<h1 class='big' name='hi'>Hello there</h1><p>HI HI HI</p><div>Hey<em>there</em><div>You!</div></div>")
-
-			expect( parser.html_tags ).to eq( [ "<h1 class='big' name='hi'>", "</h1>", "<p>", "</p>", "<div>","<em>", "</em>", "<div>", "</div>", "</div>" ] )
-
-		end
-
-
-	end #./grab_tags
-
-
-
-	describe '#grab_content' do
-
-		it 'should grab everything in between the tags' do
-
-			parser = Parser.new( "<p>H</p><h1></h1><p>E</p><p>L</p>")
-
-			expect( parser.grab_content ).to eq( [ "", "H", "", "", "", "E", "", "L"])
-
-		end
-
-
-	end #./grab_content
-
 	describe '#open_tag' do
 
 
@@ -105,55 +77,6 @@ describe '.Parser' do
 
 	end #./open_tag
 
-
-
-	describe "#special_tag" do
-
-		it 'should return true if span or em' do
-
-			parser = Parser.new( "<em> empasize</em> some text")
-
-			expect( parser.special_tag? ).to be true
-
-		end
-
-		it 'should return false if open tag' do
-
-			parser = Parser.new( "<h1> empasize</em> some text")
-
-			expect( parser.special_tag? ).to be false
-
-		end
-
-
-		it 'should return false if closed tag' do
-
-			parser = Parser.new( "</h1> empasize</em> some text")
-
-			expect( parser.special_tag? ).to be false
-
-		end
-
-
-		it 'should return false if text' do
-
-			parser = Parser.new( "empasize</em> some text")
-
-			expect( parser.special_tag? ).to be false
-
-		end
-
-
-		it 'should return false if leading space' do
-
-			parser = Parser.new( "  empasize</em> some text")
-
-			expect( parser.special_tag? ).to be false
-
-		end
-
-
-	end #/.special_tag
 
 
 	describe '#closing_tag?' do
@@ -213,35 +136,6 @@ describe '.Parser' do
 	end #/.remove_tag
 
 
-	describe 'tag?' do
-
-		it 'should be true if there is any tag <' do
-
-			parser = Parser.new( "<h1 class='hi'>hello</h1>")
-
-			expect( parser.tag? ).to be true
-
-		end
-
-
-		it 'should be false if there is any no < or >' do
-
-			parser = Parser.new( "h1 class='hi'>hello</h1>")
-
-			expect( parser.tag? ).to be false
-
-		end
-
-
-		it 'should be false if there is any space' do
-
-			parser = Parser.new( " h1 class='hi'>hello</h1>")
-
-			expect( parser.tag? ).to be false
-
-		end
-
-	end #/.tag
 
 
 	describe '#new_node' do
@@ -255,14 +149,6 @@ describe '.Parser' do
 		it 'should return false if closing tag' do
 
 			parser = Parser.new( "</head>")
-
-			expect( parser.new_node? ).to be false
-
-		end
-
-		it 'should return false if special tag' do
-
-			parser = Parser.new( "<em>")
 
 			expect( parser.new_node? ).to be false
 

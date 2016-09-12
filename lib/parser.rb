@@ -1,16 +1,16 @@
 
 require 'pry'
 require_relative 'node'
-
 require_relative 'tree.rb'
-
 require_relative 'render.rb'
-
 require_relative 'regex'
+require_relative 'searcher'
+
+
 
 class Parser
 
-	attr_reader :html_string, :current_node, :html_tags, :html_content
+	attr_reader :html_string, :current_node, :html_tags, :html_content, :search
 
 	def initialize( html_string )
 
@@ -19,23 +19,19 @@ class Parser
 
 		@html_string = html_string
 
-		#@html_tags = grab_tags
-
-		#@html_content = grab_content
-
 		@current_node = nil
 
-		parse
+		@search = Searcher.new
+
+
+		#parse
 
 	end
 
-#add a method that scans and then one that splits
-# two arrays that will divvy up the content we then bounce back and forth to complete
-#the regexes will sort through what each array has
 
 	def parse
 
-		return if @html_string == ""
+		return @tree.root if @html_string == ""
 
 		if open_tag?
 
@@ -57,6 +53,14 @@ class Parser
 
 
 
+  def search( word )
+
+
+
+  end
+
+
+
   def check_string
 
   	if closing_tag?
@@ -71,24 +75,6 @@ class Parser
   	end
 
   end
-
-
-
-#	def grab_tags
-
-#		return @html_string.scan( TAGS )
-
-#	end
-
-
-
-#	def grab_content
-
-#		return @html_string.split( TAGS )
-
-#	end
-
-
 
 
   def add_text_to_parent
@@ -106,16 +92,6 @@ class Parser
 
   end
 
-
-#  def add_to_parent
-
-#  	tag = find_attributes
-
-#  	@tree.add_special_tag( tag[:tag], tag_content )
-
-
-
-#  end
 
 	def new_node?
 
