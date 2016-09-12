@@ -31,6 +31,8 @@ class DOMReader
 
 		@html = nil
 
+		@search_tree = nil
+
 
 	end
 
@@ -42,6 +44,8 @@ class DOMReader
 		@string = @html.html_to_string
 
 		@parser = Parser.new( @string )
+
+		@search_tree = @parser.parse
 
 
 	end
@@ -55,7 +59,7 @@ class DOMReader
 
 	def search
 
-		@parser.search
+		Searcher.new( @search_tree )
 
 	end
 

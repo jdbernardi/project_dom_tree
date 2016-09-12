@@ -21,14 +21,12 @@ class Parser
 
 		@current_node = nil
 
-		parse
-
 	end
 
 
 	def parse
 
-		return if @html_string == ""
+		return @tree.root if @html_string == ""
 
 		if open_tag?
 

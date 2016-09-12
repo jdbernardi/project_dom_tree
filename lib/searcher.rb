@@ -4,9 +4,9 @@ class Searcher
 
 	attr_accessor :tree
 
-	def initialize
+	def initialize( tree )
 
-		@tree = nil
+		@tree = tree
 
 	end
 

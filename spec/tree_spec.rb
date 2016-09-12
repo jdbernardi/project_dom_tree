@@ -38,11 +38,6 @@ describe '.tree' do
 
 		end
 
-		it 'search should be a Searcher' do
-
-			expect( search ).to be_a( Searcher )
-
-		end
 
 
 	end #./init
