@@ -41,7 +41,7 @@ class Tree
 
 		node = @stack.pop
 
-		@current_node.children = []
+		#node.children = []
 
 		@current_node = node.parent
 

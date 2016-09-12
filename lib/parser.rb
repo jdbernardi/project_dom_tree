@@ -64,7 +64,7 @@ class Parser
   		remove_tag
   		@tree.create_leaf
 
-  	elsif !closing_tag? && !open_tag?
+  	else
 
   		add_text_to_parent
 
@@ -146,12 +146,6 @@ class Parser
   end
 
 
-#  def special_tag?
-
-#  	!!@html_string.match( SPECIAL_TAG )
-
-#  end
-
 
 
   def remove_tag
@@ -192,7 +186,7 @@ class Parser
 
 	def check_attributes( attributes, open_tag )
 
-		attributes[ :tag ] = open_tag.match( OPEN_TAG_REGEX ).captures.join
+		attributes[ :tag ] = open_tag.match( OPEN_TAG_REGEX ).captures.join.strip
 
 		attributes[ :cls ] = open_tag.match( CLASS_REGEX ).captures.join(' ') unless open_tag.match( CLASS_REGEX ).nil?
 
