@@ -24,7 +24,8 @@ class Render
 
 			current_node.children.each do | child |
 
-				render( child ) if child
+				render( child ) if child.class == Node
+				render_text( child ) if child.class == String
 
 			end
 
@@ -33,6 +34,15 @@ class Render
 			puts ""
 
 	end #/.render
+
+
+	def render_text( child )
+
+		print child.to_s
+
+	end
+
+
 
 
 	def print_attributes( child )
@@ -44,6 +54,8 @@ class Render
 		print " name='#{child.name}'" if child.name
 
 		print " id='#{child.id}'" if child.id
+
+		puts "" if !child.content
 
 	end
 

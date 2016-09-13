@@ -53,7 +53,7 @@ class Tree
 
 		node = @stack.last
 
-		node.content << content
+		node.children << content
 
 	end
 
