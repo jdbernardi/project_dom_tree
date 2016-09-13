@@ -18,7 +18,7 @@ class Render
 
 			print_attributes( current_node )
 
-			print ">"
+
 
 			print_content( current_node )
 
@@ -55,7 +55,10 @@ class Render
 
 		print " id='#{child.id}'" if child.id
 
+		print ">"
+
 		puts "" if !child.content
+
 
 	end
 
