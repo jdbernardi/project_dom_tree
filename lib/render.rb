@@ -16,22 +16,23 @@ class Render
 
 		return if current_node.children.nil?
 
-	  current_node.children.each do | child |
-
-			print_attributes( child )
+			print_attributes( current_node )
 
 			print ">"
 
-			print_content( child )
+			print_content( current_node )
 
-			print_closing( child )
+			current_node.children.each do | child |
 
-			puts ''
+				render( child ) if child
 
-			render( child )
+			end
 
-		end
 
+
+			print "</#{current_node.tag}>"
+
+			puts ""
 
 	end #/.render
 
