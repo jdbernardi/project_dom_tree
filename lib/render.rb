@@ -3,6 +3,12 @@ require 'pry'
 class Render
 
 
+# base case no children
+# start with the root node
+	# print opening tag
+		# render all children
+		# recursion
+	# print closing
 
 	def render( root )
 
