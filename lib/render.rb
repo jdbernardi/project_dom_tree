@@ -28,8 +28,6 @@ class Render
 
 			end
 
-
-
 			print "</#{current_node.tag}>"
 
 			puts ""
