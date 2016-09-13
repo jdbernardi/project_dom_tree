@@ -24,31 +24,55 @@ class Searcher
 		@attribute = attribute
 		@value = value
 
-		search_keyword( @tree )
 
+
+		search_keyword( @tree )
+binding.pry
 	end
 
 
-	def search_keyword( root = nil )
+	def search_keyword( root )
 
+		current_node = root
 
-
-=begin
-		return if !current_node
+		return if current_node.children.nil?
 
 			current_node.children.each do | child |
 
-				if child.cls == @attribute && child.name == @name
+				search_node( child ) if child.class == Node
+				search_text( child ) if child.class == String
 
-					@results << child
+				search_keyword( child )
 
-				end
+			end
 
-			search_keyword( child )
 
-		end
-=end
 	end
 
 
-end #/.Parser
+	def search_node( child )
+binding.pry
+				# take the attribute passed in
+			case @attribute
+		# if the attribute is class
+			when "class"
+		# check the class of each tag
+				if child.cls
+			# if a class is found
+			binding.pry
+					@results << child if child.cls == @value
+				end
+
+			end
+
+	end
+
+
+	def search_text( child )
+
+		child.include?( @value ) ? @results << child.to_s : return
+
+
+	end
+
+end # ./Searcher

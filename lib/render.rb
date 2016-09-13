@@ -3,13 +3,6 @@ require 'pry'
 class Render
 
 
-# base case no children
-# start with the root node
-	# print opening tag
-		# render all children
-		# recursion
-	# print closing
-
 	def render( root )
 
 		current_node = root
@@ -17,8 +10,6 @@ class Render
 		return if current_node.children.nil?
 
 			print_attributes( current_node )
-
-
 
 			print_content( current_node )
 
