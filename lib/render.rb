@@ -26,8 +26,8 @@ class Render
 
 		print_text( current_node )
 
-		current_node.children.each do | child |
 
+		current_node.children.each do | child |
 
 				render( child )
 
@@ -54,7 +54,6 @@ class Render
 
 
 		child.attributes.each do | key, value |
-
 
 			case key
 
@@ -94,13 +93,6 @@ class Render
 
 	end
 
-
-
-	def render_keyword_search( attribute, name )
-
-		binding.pry
-
-	end
 
 
 	def inspect( node )

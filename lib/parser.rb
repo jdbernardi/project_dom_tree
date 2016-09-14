@@ -47,13 +47,6 @@ class Parser
   end
 
 
-  def search
-
-
-
-  end
-
-
 
   def check_string
 
@@ -86,7 +79,6 @@ class Parser
   def get_text
 
   	return @html_string.scan( TEXT ).join
-
 
   end
 
@@ -157,8 +149,6 @@ class Parser
 
 		attributes = {}
 
-		#open_tag = @html_string.match( ENTIRE_OPEN_TAG )[ 0 ]
-
 		attributes = check_attributes( attributes )
 
 		return attributes
@@ -199,29 +189,6 @@ class Parser
 		remove_text
 
 		return attributes
-
-	end
-
-
-
-
-
-	def tag_content
-
-		remove_tag
-
-	  content = []
-
-	  while @html_string[ 0 ] != '<' && !@html_string[ 0 ].nil?
-
-
-	  	content << @html_string[ 0 ]
-
-	  	@html_string = @html_string[1..-1]
-
-	  end
-
-	  return content.join unless content.empty?
 
 	end
 
