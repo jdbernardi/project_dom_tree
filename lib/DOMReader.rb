@@ -69,6 +69,12 @@ class DOMReader
 
 	end
 
+	def search_descendants( element, attribute, value )
+
+		@search.search_descendants( element, attribute, value)
+
+	end
+
 
 end #/.DOMReader
 
@@ -76,7 +82,8 @@ end #/.DOMReader
 dom = DOMReader.new
 dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
 dom.render
-#dom.search("name", "joe")
-dom.search("text", "div")
+dom.search("name", "joe")
+#dom.search("text", "div")
+dom.search_descendants( "div", "class", "inner-div")
 
 

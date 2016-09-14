@@ -13,6 +13,7 @@ class Searcher
 		@tree = tree
 		@render = Render.new
 		@results = []
+		@tag = nil
 
 
 	end
@@ -20,6 +21,9 @@ class Searcher
 
 
 	def start_keyword_search( attribute, value )
+
+		puts "KEYWORD SEARCH FOR #{attribute} and #{value}"
+		puts ""
 
 		@results = []
 
@@ -77,16 +81,49 @@ class Searcher
 	end
 
 
-	def search_descendants( child )
+	def search_descendants( node, attribute, value )
+		puts "SEARCH DESCENDANTS"
+		puts "For node: #{node} with attribute: #{attribute} and value: #{value}"
+		puts ""
 
-		# a node is passed in ie. div
-		# that tag is searched recursively until found
-			# when found
-			# the children of that that div are then searched recursively for the match
-				# matches are fed into results and then to render
+		current_node = @tree
+
+		@tag = node
+		@attribute = attribute
+		@value = value
+
+		descendants( current_node )
 
 
 	end
+
+
+	def descendants( root )
+
+		return if !root
+
+		current_node = root
+
+		if current_node.tag == @tag
+
+			current_node.children.each do | child |
+
+				@render.render( child )
+
+			end
+
+		else
+
+			current_node.children.each do | child |
+
+				descendants( child )
+
+			end
+
+		end
+
+	end
+
 
 	def search_ancestors( child )
 

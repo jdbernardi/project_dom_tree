@@ -45,6 +45,12 @@ class Render
 	end
 
 
+	def new_line?( child )
+
+		!!child.children != []
+
+	end
+
 
 
 	def print_tag( child )
@@ -75,21 +81,14 @@ class Render
 
 		print ">"
 
+
 	end
 
 
 
 	def print_text( current_node )
 
-		if current_node.attributes[:text] != ""
-
-			print current_node.attributes[:text]
-
-		elsif current_node.children != []
-
-			puts ""
-
-		end
+		print current_node.attributes[ :text ]
 
 	end
 
