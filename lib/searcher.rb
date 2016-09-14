@@ -21,13 +21,14 @@ class Searcher
 
 	def start_keyword_search( attribute, value )
 
+		@results = []
+
 		@attribute = attribute.to_sym
 		@value = value
 
 		search_keyword( @tree )
 
-		binding.pry
-
+binding.pry
 	end
 
 
@@ -54,8 +55,15 @@ class Searcher
 				# take the attribute passed in
 		if child.attributes[@attribute]
 
+			if @attribute == :text
 
-			@results << child if child.attributes[ @attribute ] == @value
+				@results << child if child.attributes[ @attribute ].include?( @value )
+
+			else
+
+			  @results << child if child.attributes[ @attribute ] == @value
+
+		  end
 
 		end
 

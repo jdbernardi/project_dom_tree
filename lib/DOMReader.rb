@@ -76,6 +76,7 @@ end #/.DOMReader
 dom = DOMReader.new
 dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
 dom.render
-dom.search("class", "top-div")
+#dom.search("name", "joe")
+dom.search("text", "div")
 
 
