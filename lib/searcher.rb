@@ -28,7 +28,8 @@ class Searcher
 
 		search_keyword( @tree )
 
-binding.pry
+		@render.render( @results )
+
 	end
 
 

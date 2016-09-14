@@ -5,10 +5,22 @@ class Render
 
 	def render( root )
 
+		# on search function an array is passed in with results - check is made if this is the case
+		if root.is_a?( Array )
+
+			root.each do | node |
+
+				render( node )
+
+			end
+
+		end
+
+
 
 		current_node = root
 
-		return if !current_node
+		return if !current_node || current_node.is_a?( Array )
 
 		print_tag( current_node ) if current_node.tag != {}
 
