@@ -57,7 +57,6 @@ class Searcher
 
 	def search_node( child )
 
-				# take the attribute passed in
 		if child.attributes[@attribute]
 
 			if @attribute == :text
@@ -94,11 +93,74 @@ class Searcher
 
 		descendants( current_node )
 
+		@render.render( @results )
+
 
 	end
 
 
 	def descendants( root )
+
+		return if !root
+
+		current_node = root
+
+		if current_node.tag == @tag
+
+			current_node.children.each do | child |
+
+				# this renders anything below the node
+				#@render.render( child )
+				search_node( child )
+
+			end
+
+		else
+
+			current_node.children.each do | child |
+
+				descendants( child )
+
+			end
+
+		end
+
+	end
+
+
+	def search_ancestors( node, attribute, value )
+
+		puts "SEARCH ANCESTORS"
+		puts "For node: #{node} with attribute: #{attribute} and value: #{value}"
+		puts ""
+
+		current_node = @tree
+
+		@tag = node
+		@attribute = attribute
+		@value = value
+
+		ancestors( current_node )
+		# a node is passed in and attribute and value
+		# the tree is searched recursively until a match for the tag is found
+		# if there is a match
+			# returns if there is no parent
+			# the current node is the parent of the child
+			# the parents attributes are searched
+				# if a match, the results are populates
+			# if no match
+				# the parent of the current node becomes the current node
+
+		# the results are rendered when completed
+
+
+	end
+
+
+
+	def ancestors( node )
+
+		return if !node
 
 		return if !root
 
@@ -123,25 +185,5 @@ class Searcher
 		end
 
 	end
-
-
-	def search_ancestors( child )
-
-		# a node is passed in and attribute and value
-		# the tree is searched recursively until a match for the tag is found
-		# if there is a match
-			# returns if there is no parent
-			# the current node is the parent of the child
-			# the parents attributes are searched
-				# if a match, the results are populates
-			# if no match
-				# the parent of the current node becomes the current node
-
-		# the results are rendered when completed
-
-
-	end
-
-
 
 end # ./Searcher

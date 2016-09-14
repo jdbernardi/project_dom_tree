@@ -84,6 +84,6 @@ dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
 dom.render
 dom.search("name", "joe")
 #dom.search("text", "div")
-dom.search_descendants( "div", "class", "inner-div")
+dom.search_descendants( "main", "class", "emphasized")
 
 
