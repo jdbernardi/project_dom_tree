@@ -21,13 +21,13 @@ class Searcher
 
 	def start_keyword_search( attribute, value )
 
-		@attribute = attribute
+		@attribute = attribute.to_sym
 		@value = value
 
-
-
 		search_keyword( @tree )
-binding.pry
+
+		binding.pry
+
 	end
 
 
@@ -35,12 +35,11 @@ binding.pry
 
 		current_node = root
 
-		return if current_node.children.nil?
+		return if current_node.children == []
 
 			current_node.children.each do | child |
 
-				search_node( child ) if child.class == Node
-				search_text( child ) if child.class == String
+				search_node( child )
 
 				search_keyword( child )
 
@@ -51,19 +50,14 @@ binding.pry
 
 
 	def search_node( child )
-binding.pry
-				# take the attribute passed in
-			case @attribute
-		# if the attribute is class
-			when "class"
-		# check the class of each tag
-				if child.cls
-			# if a class is found
-			binding.pry
-					@results << child if child.cls == @value
-				end
 
-			end
+				# take the attribute passed in
+		if child.attributes[@attribute]
+
+
+			@results << child if child.attributes[ @attribute ] == @value
+
+		end
 
 	end
 
