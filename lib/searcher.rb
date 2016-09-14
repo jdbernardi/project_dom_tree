@@ -70,12 +70,41 @@ class Searcher
 
 	end
 
-
 	def search_text( child )
 
 		child.include?( @value ) ? @results << child.to_s : return
 
+	end
+
+
+	def search_descendants( child )
+
+		# a node is passed in ie. div
+		# that tag is searched recursively until found
+			# when found
+			# the children of that that div are then searched recursively for the match
+				# matches are fed into results and then to render
+
 
 	end
+
+	def search_ancestors( child )
+
+		# a node is passed in and attribute and value
+		# the tree is searched recursively until a match for the tag is found
+		# if there is a match
+			# returns if there is no parent
+			# the current node is the parent of the child
+			# the parents attributes are searched
+				# if a match, the results are populates
+			# if no match
+				# the parent of the current node becomes the current node
+
+		# the results are rendered when completed
+
+
+	end
+
+
 
 end # ./Searcher
