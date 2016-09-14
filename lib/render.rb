@@ -10,24 +10,18 @@ class Render
 
 		return if !current_node
 
-		print_tag( current_node )
-
-		print ">"
+		print_tag( current_node ) if current_node.tag != {}
 
 		print_text( current_node )
 
 		current_node.children.each do | child |
 
-				puts "" if child.children != []
 
 				render( child )
 
-
 		end
 
-
-		puts "</#{current_node.tag}>" if current_node.tag != {}
-
+		puts "</#{current_node.tag}>"
 
 	end #/.render
 
@@ -68,6 +62,8 @@ class Render
 
 		end
 
+		print ">"
+
 	end
 
 
@@ -77,6 +73,10 @@ class Render
 		if current_node.attributes[:text] != ""
 
 			print current_node.attributes[:text]
+
+		elsif current_node.children != []
+
+			puts ""
 
 		end
 
