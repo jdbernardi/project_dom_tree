@@ -35,6 +35,7 @@ class Parser
 			@tree.add_node( node )
 
 
+
 		else
 
 			check_string
@@ -72,11 +73,23 @@ class Parser
 
   def add_text_to_parent
 
-  	@tree.add_content_to_parent( @html_string.scan( TEXT ).join)
+
+  	node = Node.new( :text => get_text )
+
+		@tree.add_content_to_parent( node )
 
   	remove_text
 
   end
+
+
+  def get_text
+
+  	return @html_string.scan( TEXT ).join
+
+
+  end
+
 
 
   def remove_text
@@ -94,10 +107,7 @@ class Parser
 
 
   def create_node( attrs )
-
-  	node = Node.new( attrs[ :tag ], attrs[ :cls ],
-										 attrs[ :id ], attrs[ :name ], tag_content  )
-
+  	node = Node.new( attrs )
   end
 
 
@@ -157,13 +167,17 @@ class Parser
 
 		attributes[ :tag ] = open_tag.match( OPEN_TAG_REGEX ).captures.join.strip
 
-		attributes[ :cls ] = open_tag.match( CLASS_REGEX ).captures.join(' ') unless open_tag.match( CLASS_REGEX ).nil?
+		attributes[ :class ] = open_tag.match( CLASS_REGEX ).captures.join(' ') unless open_tag.match( CLASS_REGEX ).nil?
 
 		attributes[ :name ] = open_tag.match( NAME_REGEX ).captures.join unless open_tag.match( NAME_REGEX ).nil?
 
 		attributes[ :id ] = open_tag.match( ID_REGEX ).captures.join unless open_tag.match( ID_REGEX ).nil?
 
+		remove_tag
 
+		attributes[ :text ] = get_text
+
+		remove_text
 
 		return attributes
 

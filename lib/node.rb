@@ -2,17 +2,14 @@ require 'pry'
 
 class Node
 
-	attr_accessor :tag, :cls, :id, :name, :content, :children, :parent
+	attr_accessor :attributes, :children, :parent
 
-	def initialize( tag = nil, cls = [], id = nil, name = nil, content = [], children = [], parent = [] )
+	def initialize( attributes = {}, children = [], parent = [] )
 
-		@tag = tag
-		@cls = cls
-		@id = id
-		@name = name
-		@content = content
+		@attributes = attributes
 		@children = children
 		@parent = parent
+
 
 	end
 

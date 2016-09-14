@@ -7,7 +7,7 @@ class Tree
 
 	def initialize
 
-		@root = Node.new( 'document', nil, nil, nil, nil, [], [])
+		@root = Node.new( :tag => "document" )
 
     @current_node = @root
 
@@ -49,11 +49,11 @@ class Tree
 
 
 
-	def add_content_to_parent( content )
+	def add_content_to_parent( text_node )
 
 		node = @stack.last
 
-		node.children << content
+		node.children << text_node
 
 	end
 

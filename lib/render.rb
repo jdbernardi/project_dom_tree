@@ -5,24 +5,22 @@ class Render
 
 	def render( root )
 
+
 		current_node = root
 
-		return if current_node.children.nil?
+		return if !current_node
 
-			print_attributes( current_node )
+		current_node.children.each do | child |
 
-			print_content( current_node )
+				puts ""
+				print_attributes( child )
+				render( child )
 
-			current_node.children.each do | child |
+		end
 
-				render( child ) if child.class == Node
-				render_text( child ) if child.class == String
 
-			end
+		print "</#{current_node.attributes[:tag]}>" if current_node.attributes != {}
 
-			print "</#{current_node.tag}>"
-
-			puts ""
 
 	end #/.render
 
@@ -38,28 +36,47 @@ class Render
 
 	def print_attributes( child )
 
-		print "<#{child.tag}" if child
 
-		print " class='#{child.cls}'" if child.cls
 
-		print " name='#{child.name}'" if child.name
+		child.attributes.each do | key, value |
 
-		print " id='#{child.id}'" if child.id
+			case key
 
-		print ">"
+				when :tag
 
-		puts "" if !child.content
+					print "<#{value}"
+
+				when :class
+
+					print "class='#{value}'"
+
+				when :name
+
+					print "name='#{value}'"
+
+				when :id
+
+					print "id='#{value}'"
+
+				when :text
+
+					print "#{value}"
+
+			end
+
+		print ">" if key != :text
+
+
+
+		end
+
+
+
 
 
 	end
 
 
-
-	def print_content( child )
-
-			print "#{child.content}"
-
-	end
 
 
 	def print_closing( child )
