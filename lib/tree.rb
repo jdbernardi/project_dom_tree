@@ -7,7 +7,7 @@ class Tree
 
 	def initialize
 
-		@root = Node.new( :tag => "document" )
+		@root = Node.new( "document" )
 
     @current_node = @root
 

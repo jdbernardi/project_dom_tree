@@ -10,16 +10,23 @@ class Render
 
 		return if !current_node
 
+		print_tag( current_node )
+
+		print ">"
+
+		print_text( current_node )
+
 		current_node.children.each do | child |
 
-				puts ""
-				print_attributes( child )
+				puts "" if child.children != []
+
 				render( child )
+
 
 		end
 
 
-		print "</#{current_node.attributes[:tag]}>" if current_node.attributes != {}
+		puts "</#{current_node.tag}>" if current_node.tag != {}
 
 
 	end #/.render
@@ -34,56 +41,47 @@ class Render
 
 
 
-	def print_attributes( child )
+	def print_tag( child )
 
+
+		print "<#{child.tag}" if child.tag != {}
 
 
 		child.attributes.each do | key, value |
 
+
 			case key
-
-				when :tag
-
-					print "<#{value}"
 
 				when :class
 
-					print "class='#{value}'"
+					print " class='#{value}'"
 
 				when :name
 
-					print "name='#{value}'"
+					print " name='#{value}'"
 
 				when :id
 
-					print "id='#{value}'"
-
-				when :text
-
-					print "#{value}"
+					print " id='#{value}'"
 
 			end
 
-		print ">" if key != :text
+		end
+
+	end
 
 
+
+	def print_text( current_node )
+
+		if current_node.attributes[:text] != ""
+
+			print current_node.attributes[:text]
 
 		end
 
-
-
-
-
 	end
 
-
-
-
-	def print_closing( child )
-
-		print "</#{child.tag}>" if child.children.empty?
-
-	end
 
 
 	def render_keyword_search( attribute, name )

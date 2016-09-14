@@ -29,9 +29,9 @@ class Parser
 
 		if open_tag?
 
-
+			tag = get_tag
 			attributes = find_attributes
-			node = create_node( attributes )
+			node = create_node( tag, attributes )
 			@tree.add_node( node )
 
 
@@ -74,7 +74,7 @@ class Parser
   def add_text_to_parent
 
 
-  	node = Node.new( :text => get_text )
+  	node = Node.new( {}, :text => get_text )
 
 		@tree.add_content_to_parent( node )
 
@@ -106,8 +106,10 @@ class Parser
 	end
 
 
-  def create_node( attrs )
-  	node = Node.new( attrs )
+  def create_node( tag, attrs )
+
+  	node = Node.new( tag, attrs )
+
   end
 
 
@@ -152,26 +154,43 @@ class Parser
 
 	def find_attributes
 
+
 		attributes = {}
 
-		open_tag = @html_string.match( ENTIRE_OPEN_TAG )[ 0 ]
+		#open_tag = @html_string.match( ENTIRE_OPEN_TAG )[ 0 ]
 
-		attributes = check_attributes( attributes, open_tag )
+		attributes = check_attributes( attributes )
 
 		return attributes
 
 	end
 
 
-	def check_attributes( attributes, open_tag )
+	def get_open_tag
 
-		attributes[ :tag ] = open_tag.match( OPEN_TAG_REGEX ).captures.join.strip
+		@open_tag = @html_string.match( ENTIRE_OPEN_TAG )[ 0 ]
+	end
 
-		attributes[ :class ] = open_tag.match( CLASS_REGEX ).captures.join(' ') unless open_tag.match( CLASS_REGEX ).nil?
 
-		attributes[ :name ] = open_tag.match( NAME_REGEX ).captures.join unless open_tag.match( NAME_REGEX ).nil?
 
-		attributes[ :id ] = open_tag.match( ID_REGEX ).captures.join unless open_tag.match( ID_REGEX ).nil?
+
+	def get_tag
+
+		get_open_tag
+
+		return @open_tag.match( OPEN_TAG_REGEX ).captures.join.strip
+
+	end
+
+
+
+	def check_attributes( attributes )
+
+		attributes[ :class ] = @open_tag.match( CLASS_REGEX ).captures.join(' ') unless @open_tag.match( CLASS_REGEX ).nil?
+
+		attributes[ :name ] = @open_tag.match( NAME_REGEX ).captures.join unless @open_tag.match( NAME_REGEX ).nil?
+
+		attributes[ :id ] = @open_tag.match( ID_REGEX ).captures.join unless @open_tag.match( ID_REGEX ).nil?
 
 		remove_tag
 
