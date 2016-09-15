@@ -82,9 +82,9 @@ end #/.DOMReader
 dom = DOMReader.new
 dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
 #dom.render
-#dom.search("name", "joe")
+dom.search("name", "joe")
 dom.search("class", "funky")
-#dom.search_children( "main", "class", "emphasized")
-#dom.search_children( "head", "id", "main-area")
+dom.search_children( "main", "class", "emphasized")
+dom.search_children( "head", "id", "main-area")
 
 

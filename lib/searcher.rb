@@ -102,9 +102,7 @@ class Searcher
 
 		current_node = @tree
 
-		@tag = node
-		@attribute = attribute.to_sym
-		@value = value
+		set_values( node, attribute, value )
 
 		search_tree( current_node )
 
@@ -114,6 +112,13 @@ class Searcher
 	end
 
 
+	def set_values( tag, attribute, value )
+
+		@tag = tag
+		@attribute = attribute.to_sym
+		@value = value
+
+	end
 
 
 
@@ -129,9 +134,7 @@ class Searcher
 		current_node = @tree
 		@results = []
 
-		@tag = node
-		@attribute = attribute.to_sym
-		@value = value
+		set_values( node, attribute, value )
 
 		ancestors( current_node )
 
