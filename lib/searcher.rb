@@ -57,21 +57,21 @@ class Searcher
 
 	def search_node( child )
 
-		if child.attributes[@attribute]
+		if child.attributes
 
 			if @attribute == :text
 
 				@results << child if child.attributes[ @attribute ].include?( @value )
 
+			elsif child.attributes[ @attribute ] == @value
+
+			  @results << child
+
 			else
 
-			  @results << child if child.attributes[ @attribute ] == @value
+				return
 
 		  end
-
-		else
-
-			return
 
 		end
 
@@ -89,6 +89,8 @@ class Searcher
 		puts "For node: #{node} with attribute: #{attribute} and value: #{value}"
 		puts ""
 
+		@results = []
+
 		current_node = @tree
 
 		@tag = node
@@ -105,31 +107,24 @@ class Searcher
 
 	def children( root )
 
-		return if !root
 
 		current_node = root
 
-		if current_node.tag == @tag
+		return if current_node.children == []
 
 			current_node.children.each do | child |
 
-				# this renders anything below the node
-				#@render.render( child )
 				search_node( child )
 
-			end
-
-		else
-
-			current_node.children.each do | child |
-
-				children( child )
+				search_keyword( child )
 
 			end
 
-		end
 
 	end
+
+
+
 
 
 	def search_ancestors( node, attribute, value )
