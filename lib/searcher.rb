@@ -72,10 +72,6 @@ class Searcher
 
 			  @results << child
 
-			else
-
-				return
-
 		  end
 
 		end
@@ -84,12 +80,6 @@ class Searcher
 
 
 
-
-	def search_text( child )
-
-		child.include?( @value ) ? @results << child.to_s : return
-
-	end
 
 
 	def search_children( node, attribute, value )
@@ -122,8 +112,6 @@ class Searcher
 
 
 
-
-
 	def search_ancestors( node, attribute, value )
 
 		puts ""
@@ -131,12 +119,15 @@ class Searcher
 		puts "For node: #{node} with attribute: #{attribute} and value: #{value}"
 		puts ""
 
-		current_node = @tree
 		@results = []
+
+		current_node = @tree
 
 		set_values( node, attribute, value )
 
-		ancestors( current_node )
+		search_tree( current_node )
+
+		@render.render( @results )
 
 
 	end
