@@ -69,6 +69,10 @@ class Searcher
 
 		  end
 
+		else
+
+			return
+
 		end
 
 	end
@@ -80,18 +84,18 @@ class Searcher
 	end
 
 
-	def search_descendants( node, attribute, value )
-		puts "SEARCH DESCENDANTS"
+	def search_children( node, attribute, value )
+		puts "SEARCH CHILDREN"
 		puts "For node: #{node} with attribute: #{attribute} and value: #{value}"
 		puts ""
 
 		current_node = @tree
 
 		@tag = node
-		@attribute = attribute
+		@attribute = attribute.to_sym
 		@value = value
 
-		descendants( current_node )
+		children( current_node )
 
 		@render.render( @results )
 
@@ -99,7 +103,7 @@ class Searcher
 	end
 
 
-	def descendants( root )
+	def children( root )
 
 		return if !root
 
@@ -119,7 +123,7 @@ class Searcher
 
 			current_node.children.each do | child |
 
-				descendants( child )
+				children( child )
 
 			end
 
@@ -137,7 +141,7 @@ class Searcher
 		current_node = @tree
 
 		@tag = node
-		@attribute = attribute
+		@attribute = attribute.to_sym
 		@value = value
 
 		ancestors( current_node )
@@ -161,16 +165,14 @@ class Searcher
 	def ancestors( node )
 
 		return if !node
-
-		return if !root
-
+		# pass in the element (AKA node)
 		current_node = root
-
+		# if the tag of the current node matches the result
 		if current_node.tag == @tag
 
-			current_node.children.each do | child |
+			current_node.parent.each do | parent |
 
-				@render.render( child )
+				@render.render( parent )
 
 			end
 
@@ -178,7 +180,7 @@ class Searcher
 
 			current_node.children.each do | child |
 
-				descendants( child )
+				children( child )
 
 			end
 

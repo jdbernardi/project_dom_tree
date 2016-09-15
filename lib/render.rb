@@ -33,7 +33,7 @@ class Render
 
 		end
 
-		puts "</#{current_node.tag}>"
+		puts "</#{current_node.tag}>" unless current_node.tag == {}
 
 	end #/.render
 
@@ -88,7 +88,15 @@ class Render
 
 	def print_text( current_node )
 
-		print current_node.attributes[ :text ]
+		text = current_node.attributes[ :text ]
+
+		if text == "" || !text
+
+			puts ""
+
+		else print text
+
+		end
 
 	end
 
