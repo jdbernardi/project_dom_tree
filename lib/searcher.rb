@@ -22,6 +22,7 @@ class Searcher
 
 	def start_keyword_search( attribute, value )
 
+		puts ""
 		puts "KEYWORD SEARCH FOR #{attribute} and #{value}"
 		puts ""
 
@@ -30,14 +31,16 @@ class Searcher
 		@attribute = attribute.to_sym
 		@value = value
 
-		search_keyword( @tree )
+		search_tree( @tree )
 
 		@render.render( @results )
 
 	end
 
 
-	def search_keyword( root )
+
+
+	def search_tree( root )
 
 		current_node = root
 
@@ -47,12 +50,14 @@ class Searcher
 
 				search_node( child )
 
-				search_keyword( child )
+				search_tree( child )
 
 			end
 
 
 	end
+
+
 
 
 	def search_node( child )
@@ -63,7 +68,7 @@ class Searcher
 
 				@results << child if child.attributes[ @attribute ].include?( @value )
 
-			elsif child.attributes[ @attribute ] == @value
+			elsif child.attributes[@attribute] && child.attributes[@attribute].include?(@value)
 
 			  @results << child
 
@@ -77,6 +82,9 @@ class Searcher
 
 	end
 
+
+
+
 	def search_text( child )
 
 		child.include?( @value ) ? @results << child.to_s : return
@@ -85,8 +93,9 @@ class Searcher
 
 
 	def search_children( node, attribute, value )
+		puts ""
 		puts "SEARCH CHILDREN"
-		puts "For node: #{node} with attribute: #{attribute} and value: #{value}"
+		puts "Below node: #{node} with attribute: #{attribute} and value: #{value}"
 		puts ""
 
 		@results = []
@@ -97,7 +106,7 @@ class Searcher
 		@attribute = attribute.to_sym
 		@value = value
 
-		children( current_node )
+		search_tree( current_node )
 
 		@render.render( @results )
 
@@ -105,23 +114,6 @@ class Searcher
 	end
 
 
-	def children( root )
-
-
-		current_node = root
-
-		return if current_node.children == []
-
-			current_node.children.each do | child |
-
-				search_node( child )
-
-				search_keyword( child )
-
-			end
-
-
-	end
 
 
 
@@ -129,28 +121,19 @@ class Searcher
 
 	def search_ancestors( node, attribute, value )
 
+		puts ""
 		puts "SEARCH ANCESTORS"
 		puts "For node: #{node} with attribute: #{attribute} and value: #{value}"
 		puts ""
 
 		current_node = @tree
+		@results = []
 
 		@tag = node
 		@attribute = attribute.to_sym
 		@value = value
 
 		ancestors( current_node )
-		# a node is passed in and attribute and value
-		# the tree is searched recursively until a match for the tag is found
-		# if there is a match
-			# returns if there is no parent
-			# the current node is the parent of the child
-			# the parents attributes are searched
-				# if a match, the results are populates
-			# if no match
-				# the parent of the current node becomes the current node
-
-		# the results are rendered when completed
 
 
 	end
