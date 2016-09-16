@@ -30,12 +30,8 @@ class Render
 
 		return if !current_node
 
-		print "".ljust( @open_tag_spacing )
-
-		# print out the entire tag and any text associated with it
 
 		format_render( current_node )
-
 
 		# then iterate through each of the children of the node
 		if current_node.children != []
@@ -48,7 +44,7 @@ class Render
 		end
 
 
-		puts "</#{current_node.tag}>".rjust(@closing_tag_spacing) unless current_node.tag == {}
+		puts "</#{current_node.tag}>" unless current_node.tag == {}
 
 
 	end #/.render
@@ -57,7 +53,7 @@ class Render
 
 	def print_tag( child )
 
-	  print "<#{child.tag}" if child.tag != {}
+	  print "<#{child.tag}".rjust(@open_tag_spacing) if child.tag != {}
 
 		child.attributes.each do | key, value |
 
@@ -94,7 +90,10 @@ class Render
 
 	def format_render( child )
 
+
 		print_tag( child ) if child.tag != {}
+
+		adjust_spacing( child )
 
 		if child.tag == 'em'
 
@@ -106,17 +105,24 @@ class Render
 			print_text( child )
 
 		elsif child.children != []
-
+			# if there is a child, then we jump to next line
 			print_text( child )
 			puts ""
 
 		end
-		# if there is a child, then we jump to next line
-
-
 
 	end
 
+
+	def adjust_spacing( child )
+
+		if child.children != []
+
+			@open_tag_spacing += 2
+
+		end
+
+	end
 
 
 end #/.Parser
