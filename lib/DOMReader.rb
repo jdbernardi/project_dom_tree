@@ -72,10 +72,10 @@ end #/.DOMReader
 
 dom = DOMReader.new
 dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
-#dom.render
-dom.search("name", "joe")
-dom.search("class", "funky")
-dom.search_children( "html", "id", "shoes")
-dom.search_children( "body", "class", "inner-div")
-dom.search_ancestors( "h2", "class", "super-header")
+dom.render
+#dom.search("name", "joe")
+#dom.search("class", "funky")
+#dom.search_children( "html", "id", "shoes")
+#dom.search_children( "body", "class", "inner-div")
+#dom.search_ancestors( "h2", "class", "super-header")
 
