@@ -81,11 +81,18 @@ class Render
 
 
 
+
+
+
 	def print_text( current_node )
 
 		print current_node.attributes[ :text ]
 
 	end
+
+
+
+
 
 
 	def format_render( child )
@@ -95,11 +102,7 @@ class Render
 
 		adjust_spacing( child )
 
-		if child.tag == 'em'
-
-			print_text( child )
-
-		elsif child.attributes[:text] && child.children == []
+		if child.attributes[:text] && child.children == []
 
 			print_text( child )
 

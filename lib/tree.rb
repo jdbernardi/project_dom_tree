@@ -7,7 +7,7 @@ class Tree
 
 	def initialize
 
-		@root = Node.new( "document" )
+		@root = Node.new( "doc" )
 
     @current_node = @root
 

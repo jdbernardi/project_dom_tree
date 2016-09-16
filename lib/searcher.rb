@@ -24,6 +24,7 @@ class Searcher
 	def start_keyword_search( attribute, value )
 
 		set_values( nil, attribute, value )
+
 		traverse_tree( @tree )
 
 		render_results
