@@ -119,7 +119,6 @@ class Searcher
 
 	def search_children( node, attribute, value )
 		puts ""
-		puts "SEARCH CHILDREN Below node: #{node} with attribute: #{attribute} and value: #{value}"
 		puts ""
 
 		@results = []
@@ -148,21 +147,10 @@ class Searcher
 
 	def search_ancestors( node, attribute, value )
 
-		puts ""
-		puts "SEARCH ANCESTORS For node: #{node} with attribute: #{attribute} and value: #{value}"
-		puts ""
-
-		@results = []
-
-		current_node = @tree
 
 		@ancestor_search = true
 
-		set_values( node, attribute, value )
-
-		find_first_node( @tree )
-
-		@render.render_search_results( @results )
+		search_children( node, attribute, value )
 
 
 	end
