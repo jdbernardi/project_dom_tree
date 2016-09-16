@@ -68,14 +68,13 @@ class Searcher
 
 		search_node( current_node )
 
-		return if current_node.children == []
+#		return if current_node.children == []
 
-			current_node.children.each do | child |
+#			current_node.children.each do | child |
 
-				search_node( child )
+#				search_node( child )
 
-			end
-				# then move up to the next parent
+#			end
 
 		ascend_tree( current_node )
 
