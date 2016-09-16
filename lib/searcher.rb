@@ -14,6 +14,7 @@ class Searcher
 		@render = Render.new
 		@results = []
 		@tag = nil
+		@start_node = nil
 
 
 	end
@@ -43,6 +44,7 @@ class Searcher
 	def search_tree( root )
 
 		current_node = root
+
 
 		return if current_node.children == []
 
