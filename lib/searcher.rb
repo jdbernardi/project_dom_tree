@@ -14,7 +14,7 @@ class Searcher
 		@render = Render.new
 		@results = []
 		@tag = nil
-		@start_node = nil
+		@ancestor_search = nil
 
 
 	end
@@ -32,7 +32,7 @@ class Searcher
 		@attribute = attribute.to_sym
 		@value = value
 
-		search_tree( @tree )
+		traverse_tree( @tree )
 
 		@render.render( @results )
 
@@ -41,7 +41,7 @@ class Searcher
 
 
 
-	def search_tree( root )
+	def traverse_tree( root )
 
 		current_node = root
 
@@ -52,13 +52,27 @@ class Searcher
 
 				search_node( child )
 
-				search_tree( child )
+				traverse_tree( child )
 
 			end
 
 
 	end
 
+
+	def ascend_tree( root )
+
+
+		return if root.parent == []
+
+		current_node = root.parent
+
+				traverse_tree( current_node )
+
+				ascend_tree( current_node )
+
+
+	end
 
 
 
@@ -82,19 +96,19 @@ class Searcher
 
 
 
-	def get_node( root = nil )
+	def find_first_node( root = nil )
 
 		return if !root
 
 		if root.tag == @tag
 
-				search_tree( root )
+				@ancestor_search ? ascend_tree( root ) : traverse_tree( root )
 
 		else
 
 			root.children.each do | child |
 
-			  get_node( child )
+			  find_first_node( child )
 
 			end
 
@@ -106,8 +120,7 @@ class Searcher
 
 	def search_children( node, attribute, value )
 		puts ""
-		puts "SEARCH CHILDREN"
-		puts "Below node: #{node} with attribute: #{attribute} and value: #{value}"
+		puts "SEARCH CHILDREN Below node: #{node} with attribute: #{attribute} and value: #{value}"
 		puts ""
 
 		@results = []
@@ -116,7 +129,7 @@ class Searcher
 
 		set_values( node, attribute, value )
 
-		get_node( @tree )
+		find_first_node( @tree )
 
 		@render.render( @results )
 
@@ -137,17 +150,18 @@ class Searcher
 	def search_ancestors( node, attribute, value )
 
 		puts ""
-		puts "SEARCH ANCESTORS"
-		puts "For node: #{node} with attribute: #{attribute} and value: #{value}"
+		puts "SEARCH ANCESTORS For node: #{node} with attribute: #{attribute} and value: #{value}"
 		puts ""
 
 		@results = []
 
 		current_node = @tree
 
+		@ancestor_search = true
+
 		set_values( node, attribute, value )
 
-		search_tree( current_node )
+		find_first_node( @tree )
 
 		@render.render( @results )
 
@@ -155,31 +169,5 @@ class Searcher
 	end
 
 
-
-	def ancestors( node )
-
-		return if !node
-		# pass in the element (AKA node)
-		current_node = root
-		# if the tag of the current node matches the result
-		if current_node.tag == @tag
-
-			current_node.parent.each do | parent |
-
-				@render.render( parent )
-
-			end
-
-		else
-
-			current_node.children.each do | child |
-
-				children( child )
-
-			end
-
-		end
-
-	end
 
 end # ./Searcher

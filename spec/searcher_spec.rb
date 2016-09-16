@@ -72,21 +72,5 @@ describe '.Searcher' do
 
 	end #./search_keyword
 
-# how to get the tree in the test suite?
-	describe '#get_node' do
-
-		it 'should return the node to start searching with' do
-				#dom = DOMReader.new
-				#dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
-				#dom.search_children( "body", "class", "top-div")
-				#search.instance_variable_set( :@tag, "body")
-
-				expect( search.get_node( search.tree )).to eq( true )
-
-
-		end
-
-
-	end #./get_node
 
 end #./Seacher
