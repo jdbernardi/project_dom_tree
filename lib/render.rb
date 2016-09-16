@@ -1,11 +1,13 @@
 require 'pry'
+require_relative 'regex'
 
 class Render
 
 	def initialize
 
 
-		@spacing = 0
+		@open_tag_spacing = 0
+		@closing_tag_spacing = 0
 
 
 	end
@@ -26,27 +28,33 @@ class Render
 
 		current_node = root
 
-		return if !current_node || current_node.is_a?( Array )
+		return if !current_node
 
+		print "".ljust( @open_tag_spacing )
+
+		# print out the entire tag and any text associated with it
 		print_tag( current_node ) if current_node.tag != {}
-
 		print_text( current_node )
 
-		current_node.children.each do | child |
+		# then iterate through each of the children of the node
+		if current_node.children != []
+			current_node.children.each do | child |
 
-				render( child )
+					render( child )
+
+			end
 
 		end
 
-		puts "</#{current_node.tag}>".ljust(@spacing) unless current_node.tag == {}
+
+		puts "</#{current_node.tag}>".rjust(@closing_tag_spacing) unless current_node.tag == {}
+
 
 	end #/.render
 
 
 
 	def print_tag( child )
-
-		format_render( child )
 
 		print "<#{child.tag}" if child.tag != {}
 
@@ -84,7 +92,9 @@ class Render
 
 			puts ""
 
-		else print text
+		else
+
+			print text
 
 		end
 
@@ -93,12 +103,27 @@ class Render
 
 	def format_render( child )
 
-		print "".rjust( @spacing )
+		# if the node has children
 		if child.children != []
-			@spacing += 2
-		else
-			@spacing -= 2
+			# we render each child with spacing
+			print "".ljust( @open_tag_spacing )
+			# increment the open_tag_spacing
+
+
+		elsif child.tag == "li" || child.tag == "h2"
+		# if the node does NOT have children
+			print "".ljust( @open_tag_spacing )
+			# the spacing remains the same
+		elsif child.children == []
+
+			print "".ljust( @open_tag_spacing )
+
+
+
+
 		end
+
+
 
 	end
 
