@@ -12,7 +12,7 @@ class Render
 
 
 	def render_search_results( root )
-
+		# breaks up the passed results array into nodes to send to render
 		root.each do | node |
 
 			render( node )
@@ -24,7 +24,6 @@ class Render
 
 	def render( root )
 
-
 		current_node = root
 
 		return if !current_node || current_node.is_a?( Array )
@@ -33,14 +32,13 @@ class Render
 
 		print_text( current_node )
 
-
 		current_node.children.each do | child |
 
 				render( child )
 
 		end
 
-		puts "</#{current_node.tag}>" unless current_node.tag == {}
+		puts "</#{current_node.tag}>".ljust(@spacing) unless current_node.tag == {}
 
 	end #/.render
 
@@ -48,9 +46,9 @@ class Render
 
 	def print_tag( child )
 
+		format_render( child )
 
 		print "<#{child.tag}" if child.tag != {}
-
 
 		child.attributes.each do | key, value |
 
@@ -93,10 +91,17 @@ class Render
 	end
 
 
+	def format_render( child )
 
-	def inspect( node )
-
+		print "".rjust( @spacing )
+		if child.children != []
+			@spacing += 2
+		else
+			@spacing -= 2
+		end
 
 	end
+
+
 
 end #/.Parser
