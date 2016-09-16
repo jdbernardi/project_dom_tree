@@ -68,14 +68,6 @@ class Searcher
 
 		search_node( current_node )
 
-#		return if current_node.children == []
-
-#			current_node.children.each do | child |
-
-#				search_node( child )
-
-#			end
-
 		ascend_tree( current_node )
 
 
@@ -85,7 +77,7 @@ class Searcher
 
 	def search_node( child )
 
-		if child.is_a?( Node ) && child.attributes && child.attributes != {}
+		if child.attributes
 
 			if @attribute == :text
 
