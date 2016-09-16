@@ -105,7 +105,7 @@ class Render
 
 		print_tag( child ) if child.tag != {}
 
-		adjust_spacing( child )
+		add_space( child )
 
 		if child.attributes[:text] && child.children == []
 
@@ -121,7 +121,7 @@ class Render
 	end
 
 
-	def adjust_spacing( child )
+	def add_space( child )
 
 		if child.children != []
 

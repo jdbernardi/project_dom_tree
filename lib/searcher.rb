@@ -25,7 +25,7 @@ class Searcher
 
 		set_values( nil, attribute, value )
 
-		traverse_tree( @tree )
+		traverse_children( @tree )
 
 		render_results
 
@@ -33,7 +33,7 @@ class Searcher
 
 
 
-	def traverse_tree( root )
+	def traverse_children( root )
 
 		current_node = root
 
@@ -44,7 +44,7 @@ class Searcher
 
 				search_node( child )
 
-				traverse_tree( child )
+				traverse_children( child )
 
 			end
 
@@ -52,7 +52,7 @@ class Searcher
 	end
 
 
-	def ascend_tree( root )
+	def traverse_parents( root )
 
 		return if root.parent == []
 		# set the current node as the parent
@@ -60,7 +60,7 @@ class Searcher
 
 		search_node( current_node )
 
-		ascend_tree( current_node )
+		traverse_parents( current_node )
 
 
 	end
@@ -93,7 +93,7 @@ class Searcher
 
 		if root.tag == @tag
 
-				@ancestor_search ? ascend_tree( root ) : traverse_tree( root )
+				@ancestor_search ? traverse_parents( root ) : traverse_children( root )
 
 		else
 
@@ -121,6 +121,8 @@ class Searcher
 
 
 	end
+
+
 
 
 	def set_values( tag, attribute, value )
