@@ -9,8 +9,9 @@ class Render
 		@open_tag_spacing = 0
 
 
-
 	end
+
+
 
 	# array is broken up into Nodes
 	def render_search_results( root )
@@ -22,6 +23,8 @@ class Render
 		end
 
 	end
+
+
 
 
 	def render( root )
@@ -48,6 +51,8 @@ class Render
 
 
 	end #/.render
+
+
 
 
 
