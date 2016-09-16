@@ -33,8 +33,9 @@ class Render
 		print "".ljust( @open_tag_spacing )
 
 		# print out the entire tag and any text associated with it
-		print_tag( current_node ) if current_node.tag != {}
-		print_text( current_node )
+
+		format_render( current_node )
+
 
 		# then iterate through each of the children of the node
 		if current_node.children != []
@@ -56,7 +57,7 @@ class Render
 
 	def print_tag( child )
 
-		print "<#{child.tag}" if child.tag != {}
+	  print "<#{child.tag}" if child.tag != {}
 
 		child.attributes.each do | key, value |
 
@@ -86,42 +87,31 @@ class Render
 
 	def print_text( current_node )
 
-		text = current_node.attributes[ :text ]
-
-		if text == "" || !text
-
-			puts ""
-
-		else
-
-			print text
-
-		end
+		print current_node.attributes[ :text ]
 
 	end
 
 
 	def format_render( child )
 
-		# if the node has children
-		if child.children != []
-			# we render each child with spacing
-			print "".ljust( @open_tag_spacing )
-			# increment the open_tag_spacing
+		print_tag( child ) if child.tag != {}
 
+		if child.tag == 'em'
 
-		elsif child.tag == "li" || child.tag == "h2"
-		# if the node does NOT have children
-			print "".ljust( @open_tag_spacing )
-			# the spacing remains the same
-		elsif child.children == []
+			print_text( child )
 
-			print "".ljust( @open_tag_spacing )
+		# the tag will have either text or a child
+		elsif child.attributes[:text] && child.children == []
+		# if there is no text then we jump to next line
+			print_text( child )
 
+		elsif child.children != []
 
-
+			print_text( child )
+			puts ""
 
 		end
+		# if there is a child, then we jump to next line
 
 
 
