@@ -4,7 +4,7 @@ require 'pry'
 
 class Searcher
 
-	attr_accessor :tree
+	attr_accessor :tree, :tag
 
 	attr_reader :results, :attribute, :value
 
@@ -80,6 +80,26 @@ class Searcher
 
 
 
+	def get_node( root = nil )
+
+		return if !root
+
+		if root.tag == @tag
+
+				search_tree( root )
+
+		else
+
+			root.children.each do | child |
+
+			  get_node( child )
+
+			end
+
+		end
+
+	end
+
 
 
 	def search_children( node, attribute, value )
@@ -94,7 +114,7 @@ class Searcher
 
 		set_values( node, attribute, value )
 
-		search_tree( current_node )
+		get_node( @tree )
 
 		@render.render( @results )
 

@@ -4,12 +4,15 @@ require 'tree'
 require 'render'
 require 'regex'
 require 'node'
+require 'html'
+require 'DOMReader'
 
 
 describe '.Searcher' do
 
 	let( :render ) { Render.new }
-	let( :searcher ) { Searcher.new }
+	let( :search ) { Searcher.new }
+	let( :dom ) { DOMReader.new }
 
 	let( :node ) { Node.new(tag = 'header', cls = ['top-div'], id = nil, name = nil, content = [], children = [], parent = [] )}
 
@@ -24,7 +27,7 @@ describe '.Searcher' do
 
 		it 'results should be an array' do
 
-			expect( searcher.results ).to be_a( Array )
+			expect( search.results ).to be_a( Array )
 
 		end
 
@@ -35,9 +38,9 @@ describe '.Searcher' do
 		it 'should have attribute passed through' do
 
 
-			searcher.start_keyword_search('class', 'top-div')
+			search.start_keyword_search('class', 'top-div')
 
-			expect( searcher.attribute ).to eq('class')
+			expect( search.attribute ).to eq('class')
 
 		end
 
@@ -45,9 +48,9 @@ describe '.Searcher' do
 		it 'should have name passed through' do
 
 
-			searcher.start_keyword_search('class', 'top-div')
+			search.start_keyword_search('class', 'top-div')
 
-			expect( searcher.value ).to eq('top-div')
+			expect( search.value ).to eq('top-div')
 
 		end
 
@@ -58,9 +61,9 @@ describe '.Searcher' do
 
 		it 'should return an array of a match' do
 
-			allow( searcher.search_keyword ).to_receive( node )
+			allow( search.search_keyword ).to_receive( node )
 
-			expect( searcher.search_keyword( node )).to be true
+			expect( search.search_keyword( node )).to be true
 
 
 
@@ -68,5 +71,22 @@ describe '.Searcher' do
 
 
 	end #./search_keyword
+
+# how to get the tree in the test suite?
+	describe '#get_node' do
+
+		it 'should return the node to start searching with' do
+				#dom = DOMReader.new
+				#dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
+				#dom.search_children( "body", "class", "top-div")
+				#search.instance_variable_set( :@tag, "body")
+
+				expect( search.get_node( search.tree )).to eq( true )
+
+
+		end
+
+
+	end #./get_node
 
 end #./Seacher
