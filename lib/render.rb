@@ -2,20 +2,27 @@ require 'pry'
 
 class Render
 
+	def initialize
 
-	def render( root )
 
-		# on search function an array is passed in with results - check is made if this is the case
-		if root.is_a?( Array )
+		@spacing = 0
 
-			root.each do | node |
 
-				render( node )
+	end
 
-			end
+
+	def render_search_results( root )
+
+		root.each do | node |
+
+			render( node )
 
 		end
 
+	end
+
+
+	def render( root )
 
 
 		current_node = root
@@ -36,20 +43,6 @@ class Render
 		puts "</#{current_node.tag}>" unless current_node.tag == {}
 
 	end #/.render
-
-
-	def render_text( child )
-
-		print child.to_s
-
-	end
-
-
-	def new_line?( child )
-
-		!!child.children != []
-
-	end
 
 
 
@@ -80,7 +73,6 @@ class Render
 		end
 
 		print ">"
-
 
 	end
 

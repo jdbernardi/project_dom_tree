@@ -34,7 +34,7 @@ class Searcher
 
 		traverse_tree( @tree )
 
-		@render.render( @results )
+		@render.render_search_results( @results )
 
 	end
 
@@ -130,7 +130,7 @@ class Searcher
 
 		find_first_node( @tree )
 
-		@render.render( @results )
+		@render.render_search_results( @results )
 
 
 	end
@@ -162,7 +162,7 @@ class Searcher
 
 		find_first_node( @tree )
 
-		@render.render( @results )
+		@render.render_search_results( @results )
 
 
 	end
