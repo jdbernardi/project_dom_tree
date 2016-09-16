@@ -23,19 +23,12 @@ class Searcher
 
 	def start_keyword_search( attribute, value )
 
-		puts ""
-		puts "KEYWORD SEARCH FOR #{attribute} and #{value}"
-		puts ""
-
-		@results = []
-
 		set_values( nil, attribute, value )
 		traverse_tree( @tree )
 
 		render_results
 
 	end
-
 
 
 
@@ -116,8 +109,6 @@ class Searcher
 
 
 	def search_children( node, attribute, value )
-		puts ""
-		puts ""
 
 		@results = []
 

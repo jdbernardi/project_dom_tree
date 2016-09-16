@@ -73,9 +73,20 @@ end #/.DOMReader
 dom = DOMReader.new
 dom.build_tree( '/Users/JoeBernardi/VCS/Ruby/project_dom_tree/test.html' )
 dom.render
+
+puts ""
+puts "---search for attribute: name and text: joe---"
 dom.search("name", "joe")
-dom.search("class", "funky")
+
+puts ""
+puts "---search children of html for id='shoes'---"
 dom.search_children( "html", "id", "shoes")
+
+puts ""
+puts "---search children of body with class='inner-div'---"
 dom.search_children( "body", "class", "inner-div")
+
+puts ""
+puts "--search ancestors of h2 for class='super-header---"
 dom.search_ancestors( "h2", "class", "super-header")
 
