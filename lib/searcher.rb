@@ -29,12 +29,10 @@ class Searcher
 
 		@results = []
 
-		@attribute = attribute.to_sym
-		@value = value
-
+		set_values( nil, attribute, value )
 		traverse_tree( @tree )
 
-		@render.render_search_results( @results )
+		render_results
 
 	end
 
@@ -123,13 +121,11 @@ class Searcher
 
 		@results = []
 
-		current_node = @tree
-
 		set_values( node, attribute, value )
 
 		find_first_node( @tree )
 
-		@render.render_search_results( @results )
+		render_results
 
 
 	end
@@ -143,6 +139,12 @@ class Searcher
 
 	end
 
+
+	def render_results
+
+		@render.render_search_results( @results )
+
+	end
 
 
 	def search_ancestors( node, attribute, value )
